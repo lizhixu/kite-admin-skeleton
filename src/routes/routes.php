@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use iLzx\AdminStarter\Controls\CommonController;
 use iLzx\AdminStarter\Controls\MenuController as MenuControllerAlias;
 use iLzx\AdminStarter\Controls\UserController;
 
@@ -306,7 +307,7 @@ Route::prefix('k-avue')->group(static function () {
         }
         exit();
     });
-
+    Route::get('captcha/{redomstr}', [CommonController::class, 'captcha']);
     Route::get('get_menu', [MenuControllerAlias::class, 'get_menu']);
     Route::post('user/login', [UserController::class, 'login']);
     Route::get('user/getTopMenu', [UserController::class, 'getTopMenu']);

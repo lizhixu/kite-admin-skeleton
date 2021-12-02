@@ -11,7 +11,8 @@
     ],
     "require": {
         "illuminate/support": "^v8.70.2",
-        "lcobucci/jwt": "^4.1"
+        "lcobucci/jwt": "^4.1",
+        "gregwar/captcha": "^1.1"
     },
     "autoload": {
         "psr-4": {
