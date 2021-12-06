@@ -6,6 +6,7 @@ namespace iLzx\AdminStarter;
 
 use Illuminate\Support\ServiceProvider;
 use iLzx\AdminStarter\Commands\DatabasesCommand;
+use iLzx\AdminStarter\Facades\JWT\Facade\JWT;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -18,8 +19,8 @@ class AdminServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/config/avue.php', config_path('avue.php')
         );
-        $this->app->singleton(Admin::class, function () {
-            return new Admin();
+        $this->app->singleton('jwt', function () {
+            return new JWT();
         });
     }
 

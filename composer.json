@@ -10,6 +10,7 @@
         }
     ],
     "require": {
+        "php": "^7.4|^8.0|^8.1",
         "illuminate/support": "^v8.70.2",
         "lcobucci/jwt": "^4.1",
         "gregwar/captcha": "^1.1"
@@ -28,7 +29,7 @@
                 "iLzx\\AdminStarter\\AdminServiceProvider"
             ],
             "aliases": {
-                "iLzx": "iLzx\\AdminStarter\\AdminFacade"
+                "JWT": "iLzx\\AdminStarter\\Facades\\JWT"
             }
         }
     }
