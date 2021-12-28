@@ -10,8 +10,9 @@ class CommonController extends Controller
     public function captcha($redomstr)
     {
         $builder = new CaptchaBuilder(4);
+        $builder->setBackgroundColor('245','247','250');
         $builder->build();
-        Cache::add('phrase' . $redomstr, $builder->getPhrase(), 60);
+        Cache::add('phrase' . $redomstr, $builder->getPhrase(), 3600);
         return $builder->output();
     }
 }
