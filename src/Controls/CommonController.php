@@ -12,7 +12,7 @@ class CommonController extends Controller
         $builder = new CaptchaBuilder(4);
         $builder->setBackgroundColor('245','247','250');
         $builder->build();
-        Cache::add('phrase' . $redomstr, $builder->getPhrase(), 3600);
+        Cache::add('phrase' . $redomstr, $builder->getPhrase(), 60);
         return $builder->output();
     }
 }

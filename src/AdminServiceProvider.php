@@ -7,6 +7,7 @@ namespace iLzx\AdminStarter;
 use Illuminate\Support\ServiceProvider;
 use iLzx\AdminStarter\Commands\DatabasesCommand;
 use iLzx\AdminStarter\Facades\JWT\Facade\JWT;
+use iLzx\AdminStarter\Middleware\AvueTokenIsValid;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,7 @@ class AdminServiceProvider extends ServiceProvider
             __DIR__ . '/Config/avue.php' => config_path('avue.php'),
         ], 'config');
 
+        $this->addMiddlewareAlias('kite.avue', AvueTokenIsValid::class);
         $this->loadRoutesFrom(__DIR__ . '/Routes/routes.php');
         $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
         if ($this->app->runningInConsole()) {
@@ -47,5 +49,26 @@ class AdminServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/Resources/lang' => resource_path('lang/vendor/admin'),
         ]);
+    }
+
+    /**
+     * 中间件别名
+     * @param $name
+     * @param $class
+     * @return mixed
+     * @author lzx
+     * @time 2022/1/27 16:13
+     */
+    protected function addMiddlewareAlias($name, $class): mixed
+    {
+        $router = $this->app['router'];
+
+        // 判断aliasMiddleware是否在类中存在
+        if (method_exists($router, 'aliasMiddleware')) {
+            // aliasMiddleware 顾名思义,就是给中间件设置一个别名
+            return $router->aliasMiddleware($name, $class);
+        }
+
+        return $router->middleware($name, $class);
     }
 }

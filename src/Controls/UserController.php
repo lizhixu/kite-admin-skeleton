@@ -22,22 +22,28 @@ class UserController extends Controller
         if ($errors) {
             return adminOutput(201, [], $errors);
         }
-        $admin = Admin::where('username', $request->username)
-            ->where('password', $request->password)->select()->first();
+        $admin = Admin::where([
+            ['username', '=', $request->username],
+            ['password', '=', md5('kite' . $request->password)],
+        ])->select('id', 'username', 'avatar')->first();
         if (!$admin) {
             return adminOutput(202, []);
         }
-        $jwt = JWT::createToken($request->password);
-        return adminOutput(200, ['token' => $jwt->toString()]);
+        $jwt = JWT::createToken($admin, $admin->id);
+        return adminOutput(200, ['token' => $jwt]);
     }
 
     public function getTopMenu(Request $request)
     {
-        dd($request->all());
+        return adminOutput(200, ['header' => $request]);
     }
 
-    public function getUserInfo(Request $request)
+    public function getUserInfo(): array
     {
-        dd($request->all());
+        $user_info              = config('userInfo');
+        $user_info->time        = time();
+        $user_info->roles       = ['admin'];
+        $user_info->authBtnList = ['btn.add', 'btn.del', 'btn.edit', 'btn.link'];
+        return adminOutput(200, $user_info);
     }
 }

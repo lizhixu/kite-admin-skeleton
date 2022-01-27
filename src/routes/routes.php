@@ -308,8 +308,11 @@ Route::prefix('k-avue')->group(static function () {
         exit();
     });
     Route::get('captcha/{redomstr}', [CommonController::class, 'captcha']);
-    Route::get('get_menu', [MenuControllerAlias::class, 'get_menu']);
     Route::post('user/login', [UserController::class, 'login']);
-    Route::get('user/getTopMenu', [UserController::class, 'getTopMenu']);
-    Route::get('user/getUserInfo', [UserController::class, 'getUserInfo']);
+
+    Route::middleware(['kite.avue'])->group(function () {
+        Route::get('getMenu', [MenuControllerAlias::class, 'getMenu']);
+        Route::get('user/getTopMenu', [UserController::class, 'getTopMenu']);
+        Route::get('user/getUserInfo', [UserController::class, 'getUserInfo']);
+    });
 });

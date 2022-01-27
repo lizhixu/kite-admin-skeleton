@@ -2,66 +2,65 @@
 
 namespace iLzx\AdminStarter\Facades\JWT\Facade;
 
-use DateTimeImmutable;
-use Illuminate\Support\Facades\Config;
-use Lcobucci\JWT\Signer\Hmac\Sha256;
-use Lcobucci\JWT\Configuration;
-use Lcobucci\JWT\Signer\Key\InMemory;
-use Lcobucci\JWT\UnencryptedToken;
+use iLzx\AdminStarter\Models\Admin;
 
 class JWT
 {
-    public static function getConfig(): Configuration
+    private static mixed $config;
+
+    public function __construct()
     {
-        return Configuration::forSymmetricSigner(
-        // You may use any HMAC variations (256, 384, and 512)
-            new Sha256(),
-            // replace the value below with a key of your own!
-            InMemory::base64Encoded('a2l0ZS1hZG1pbi1hdnVlLXRva2Vu')
-        // You may also override the JOSE encoder/decoder if needed by providing extra arguments here
-        );
+        $this::$config = config('avue.token');
     }
 
-    public static function createToken($uid)
+    /**
+     * 创建token
+     * @param $data
+     * @param $id
+     * @param string $sub
+     * @return string
+     * @author lzx
+     * @time 2022/1/27 15:58
+     */
+    public static function createToken($data, $id, string $sub = 'kite-admin-token'): string
     {
-        $config = self::getConfig();
-        assert($config instanceof Configuration);
-        $now        = new DateTimeImmutable();
-        $jwt_config = Config::get('avue.token');
-        return $config->builder()
-            // Configures the issuer (iss claim)
-            ->issuedBy($jwt_config['issuedBy'])
-            // Configures the audience (aud claim)
-            ->permittedFor($jwt_config['permittedFor'])
-            // Configures the id (jti claim)
-            ->identifiedBy($jwt_config['identifiedBy'])
-            // Configures the time that the token was issue (iat claim)
-            ->issuedAt($now)
-            // Configures the time that the token can be used (nbf claim)
-            ->canOnlyBeUsedAfter($now->modify($jwt_config['canOnlyBeUsedAfter']))
-            // Configures the expiration time of the token (exp claim)
-            ->expiresAt($now->modify($jwt_config['expiresAt']))
-            // Configures a new claim, called "uid"
-            ->withClaim('uid', $uid)
-            // Configures a new header, called "foo"
-            ->withHeader('herder', $jwt_config['withHeader'])
-            // Builds a new token
-            ->getToken($config->signer(), $config->signingKey());
+        $key     = self::$config['JWT_SECRET'];
+        $payload = [
+            'data' => $data,
+            'iss'  => self::$config['JWT_ISS'],
+            'aud'  => self::$config['JWT_AUD'],
+            'nbf'  => time(),
+            'iat'  => time(),
+            'exp'  => time() + 3600 * 2,
+            'sub'  => $sub,
+            'jti'  => md5($id),
+        ];
+        return jwt_encode($payload, $key);
     }
 
-    public static function parseToken(string $token)
+    public static function parseToken(string $token): object
     {
-        $config = self::getConfig();
-        assert($config instanceof Configuration);
-        $token = $config->parser()->parse($token);
-        assert($token instanceof UnencryptedToken);
-
-        $token->headers(); // Retrieves the token headers
-        $token->claims(); // Retrieves the token claims
+        return jwt_decode($token, self::$config['JWT_SECRET']);
     }
 
-    public static function validationToken(string $token)
+    /**
+     * 验证token
+     * @param string $token
+     * @return bool|object
+     * @author lzx
+     * @time 2022/1/27 15:59
+     */
+    public static function validationToken(string $token): bool|object
     {
-
+        $jwt = self::parseToken($token);
+        //检查是否有效
+        if ($jwt->nbf <= time() && $jwt->exp > time()) {
+            //验证管理员状态
+            return Admin::where([
+                ['id', '=', $jwt->data->id],
+                ['status', '=', 1],
+            ])->select('id', 'username', 'name', 'avatar')->first();
+        }
+        return false;
     }
 }

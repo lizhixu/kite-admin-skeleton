@@ -5,14 +5,14 @@ return [
         200 => '获取成功',
         201 => '参数错误',
         202 => '登录失败',
-        203 => '权限创建成功',
+        203 => 'token无效',
     ],
     'token'  => [
-        'issuedBy'           => env('KITE_JWT_issuedBy', 'http://example.com'),
-        'permittedFor'       => env('KITE_JWT_issuedBy', 'http://example.com'),
-        'identifiedBy'       => env('KITE_JWT_identifiedBy', '4f1g23a12aa'),
-        'canOnlyBeUsedAfter' => env('KITE_JWT_canOnlyBeUsedAfter', '+0 minute'),
-        'expiresAt'          => env('KITE_JWT_expiresAt', '+24 hour'),
-        'withHeader'         => env('KITE_JWT_withHeader', 'kite'),
-    ]
+        //key
+        'JWT_SECRET' => env('JWT_SECRET', 'Hlj92vO0GCJ6w3K'),
+        //发行人
+        'JWT_ISS'    => env('JWT_ISS', 'http://example.com'),
+        //受众
+        'JWT_AUD'    => env('JWT_AUD', 'http://example.org'),
+    ],
 ];
