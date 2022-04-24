@@ -22,8 +22,9 @@ class JWT
      * @author lzx
      * @time 2022/1/27 15:58
      */
-    public static function createToken($data, $id, string $sub = 'kite-admin-token'): string
+    public static function createToken($data, $id, $checked, string $sub = 'kite-admin-token'): string
     {
+        $exp     = $checked ? 7 * 86400 : 3600 * 2;
         $key     = self::$config['JWT_SECRET'];
         $payload = [
             'data' => $data,
@@ -31,7 +32,7 @@ class JWT
             'aud'  => self::$config['JWT_AUD'],
             'nbf'  => time(),
             'iat'  => time(),
-            'exp'  => time() + 3600 * 2,
+            'exp'  => time() + $exp,
             'sub'  => $sub,
             'jti'  => md5($id),
         ];
