@@ -7,6 +7,7 @@ namespace iLzx\AdminStarter;
 use Illuminate\Support\ServiceProvider;
 use iLzx\AdminStarter\Commands\DatabasesCommand;
 use iLzx\AdminStarter\Facades\JWT\Facade\JWT;
+use iLzx\AdminStarter\Commands\CreateUserCommand;
 use iLzx\AdminStarter\Middleware\AvueTokenIsValid;
 
 class AdminServiceProvider extends ServiceProvider
@@ -41,6 +42,7 @@ class AdminServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 DatabasesCommand::class,
+                CreateUserCommand::class,
             ]);
         }
 
