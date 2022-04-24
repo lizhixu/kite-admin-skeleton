@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use iLzx\AdminStarter\Controls\CommonController;
-use iLzx\AdminStarter\Controls\MenuController as MenuControllerAlias;
+use iLzx\AdminStarter\Controls\MenuController;
 use iLzx\AdminStarter\Controls\UserController;
 
 Route::prefix('k-avue')->group(static function () {
@@ -311,7 +311,14 @@ Route::prefix('k-avue')->group(static function () {
     Route::post('user/login', [UserController::class, 'login']);
 
     Route::middleware(['kite.avue'])->group(function () {
-        Route::get('getMenu', [MenuControllerAlias::class, 'getMenu']);
+        Route::get('getMenu', [MenuController::class, 'getMenu']);
+        Route::prefix('menu')->group(function (){
+            Route::post('saveMenu', [MenuController::class, 'saveMenu']);
+            Route::get('menuList', [MenuController::class, 'menuList']);
+            Route::post('menuSave', [MenuController::class, 'menuSave']);
+            Route::put('menuUpdate', [MenuController::class, 'menuUpdate']);
+            Route::delete('menuDelete', [MenuController::class, 'menuDelete']);
+        });
         Route::get('user/getTopMenu', [UserController::class, 'getTopMenu']);
         Route::get('user/getUserInfo', [UserController::class, 'getUserInfo']);
     });

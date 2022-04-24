@@ -14,20 +14,18 @@ class CreateKiteMenusTable extends Migration
     {
         Schema::create('kite_menus', function (Blueprint $table) {
             $table->id();
+            $table->enum('type', [0, 1, 2, 3, 4])->comment('页面类型')->default(0);
             $table->integer('parent_id')->comment('父级id')->default(0);
-            $table->text('content')->comment('菜单内容');
-            $table->string('keyword')->comment('关键字')->unique();
-            $table->enum('page_type', [0, 1, 2])->comment('页面类型')->default(0);
-            $table->text('component_object')->comment('组件对象')->nullable();
-            $table->string('select_url')->comment('select链接')->default('');
-            $table->string('insert_url')->comment('insert链接')->default('');
-            $table->string('update_url')->comment('update链接')->default('');
-            $table->string('delete_url')->comment('delete链接')->default('');
-            $table->string('search_url')->comment('search链接')->default('');
-            $table->string('row_edit_url')->comment('row_edit链接')->default('');
-            $table->string('save_url')->comment('save链接')->default('');
+            $table->string('path')->comment('路由地址')->default('');
+            $table->string('name')->comment('别名')->default('');
+            $table->string('component')->comment('视图')->default('');
+            $table->string('title')->comment('显示名称')->default('');
+            $table->string('icon')->comment('菜单图标')->default('');
+            $table->enum('isHide', [0, 1])->comment('是否隐藏')->default(0);
+            $table->enum('isKeepAlive', [0, 1])->comment('是否缓存')->default(1);
+            $table->enum('isAffix', [0, 1])->comment('是否固定')->default(0);
             $table->timestamps();
-            $table->charset = 'utf8mb4';
+            $table->charset   = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
         });
     }
