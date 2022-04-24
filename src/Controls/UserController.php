@@ -16,9 +16,9 @@ class UserController extends Controller
             'username' => 'required',
             'password' => 'required',
             'redomStr' => 'required',
-            'code'     => ['required', new Captcha($request->redomStr)],
+            'code' => ['required', new Captcha($request->redomStr)],
         ]);
-        $errors   = $validate->errors()->first();
+        $errors = $validate->errors()->first();
         if ($errors) {
             return adminOutput(201, [], $errors);
         }
@@ -29,7 +29,7 @@ class UserController extends Controller
         if (!$admin) {
             return adminOutput(202, []);
         }
-        $jwt = JWT::createToken($admin, $admin->id);
+        $jwt = JWT::createToken($admin, $admin->id, $request->checked);
         return adminOutput(200, ['token' => $jwt]);
     }
 
@@ -40,9 +40,9 @@ class UserController extends Controller
 
     public function getUserInfo(): array
     {
-        $user_info              = config('userInfo');
-        $user_info->time        = time();
-        $user_info->roles       = ['admin'];
+        $user_info = config('userInfo');
+        $user_info->time = time();
+        $user_info->roles = ['admin'];
         $user_info->authBtnList = ['btn.add', 'btn.del', 'btn.edit', 'btn.link'];
         return adminOutput(200, $user_info);
     }
