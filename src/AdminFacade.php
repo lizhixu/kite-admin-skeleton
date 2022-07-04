@@ -1,8 +1,7 @@
 <?php
 
 
-namespace ilzx\AdminStarter;
-
+namespace iLzx\AdminStarter;
 
 use Illuminate\Support\Facades\Facade;
 
