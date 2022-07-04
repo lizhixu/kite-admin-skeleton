@@ -312,8 +312,10 @@ Route::prefix('k-avue')->group(static function () {
 
     Route::middleware(['kite.avue'])->group(function () {
         Route::get('getMenu', [MenuController::class, 'getMenu']);
-        Route::prefix('menu')->group(function (){
-            Route::post('saveMenu', [MenuController::class, 'saveMenu']);
+        Route::prefix('menu')->group(function () {
+            Route::get('menuDetail/{id}', [MenuController::class, 'menuDetail']);
+            Route::put('menuDetailSave', [MenuController::class, 'menuDetailSave']);
+            //菜单
             Route::get('menuList', [MenuController::class, 'menuList']);
             Route::post('menuSave', [MenuController::class, 'menuSave']);
             Route::put('menuUpdate', [MenuController::class, 'menuUpdate']);

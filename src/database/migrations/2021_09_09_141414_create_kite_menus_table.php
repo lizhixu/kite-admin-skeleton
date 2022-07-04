@@ -17,6 +17,7 @@ class CreateKiteMenusTable extends Migration
             $table->enum('type', [0, 1, 2, 3, 4])->comment('页面类型')->default(0);
             $table->integer('parent_id')->comment('父级id')->default(0);
             $table->string('path')->comment('路由地址')->default('');
+            $table->string('redirect')->comment('路由跳转地址')->default('');
             $table->string('name')->comment('别名')->default('');
             $table->string('component')->comment('视图')->default('');
             $table->string('title')->comment('显示名称')->default('');

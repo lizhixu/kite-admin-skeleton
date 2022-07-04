@@ -20,6 +20,7 @@ class CreateKiteAdminTable extends Migration
             $table->string('name', 12)->comment('用户名');
             $table->string('avatar')->nullable()->comment('头像');
             $table->timestamp('last_login_time')->comment('最后一次登录时间');
+            $table->tinyInteger('status')->default(1)->comment('管理员状态');
             $table->timestamps();
         });
     }

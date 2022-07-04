@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlertStatusToKiteAdminTable extends Migration
+class AlterKiteAdminTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AlertStatusToKiteAdminTable extends Migration
     public function up()
     {
         Schema::table('kite_admin', function (Blueprint $table) {
-            $table->tinyInteger('status')->default(1)->comment('管理员状态');
+            $table->string('role')->comment('角色');
         });
     }
 
@@ -26,7 +26,7 @@ class AlertStatusToKiteAdminTable extends Migration
     public function down()
     {
         Schema::table('kite_admin', function (Blueprint $table) {
-            $table->dropColumn('status');
+            $table->dropColumn('role');
         });
     }
 }

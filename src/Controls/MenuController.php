@@ -14,32 +14,49 @@ class MenuController extends Controller
 {
     public function getMenu(): array
     {
-//        $data = [];
-//        $menu = new Menu();
-//        //一级分类
-//        $primary_class = $menu->getMenu(0, 'id', 'content');
-//        foreach ($primary_class as $key => $class) {
-//            $data['primary_class'][] = json_decode($class->content);
-//            $child_class             = $menu->getMenu($class->id, 'content');
-//            if ($child_class->isEmpty()) {
-//                unset($data['primary_class'][$key]);
-//                break;
-//            }
-//            foreach ($child_class as $k => $c_class) {
-//                $child_class[$k] = $c_class->content;
-//            }
-//            $data['child_class'][] = $child_class;
-//        }
-        return adminOutput(200, json_decode('[{"path":"/home","name":"home","component":"home","meta":{"title":"message.router.home","isLink":"","isHide":false,"isKeepAlive":true,"isAffix":true,"isIframe":false,"roles":["admin","common"],"icon":"iconfont icon-shouye"}},{"path":"/setting","name":"setting","component":"layout/routerView/parent","redirect":"/setting/permission","meta":{"title":"系统设置","isLink":"","isHide":false,"isKeepAlive":true,"isAffix":false,"isIframe":false,"roles":["admin","common"],"icon":"iconfont icon-caidan"},"children":[{"path":"/setting/permission","name":"menus","component":"layout/routerView/parent","redirect":"/setting/permission/menus","meta":{"title":"权限系统","isLink":"","isHide":false,"isKeepAlive":true,"isAffix":false,"isIframe":false,"roles":["admin","common"],"icon":"iconfont icon-caidan"},"children":[{"path":"/setting/permission/menus","name":"menu121","component":"setting/permission/menus","meta":{"title":"菜单管理","isLink":"","isHide":false,"isKeepAlive":true,"isAffix":false,"isIframe":false,"roles":["admin","common"],"icon":"iconfont icon-caidan"}},{"path":"/menu/menu1/menu12/menu122","name":"menu122","component":"menu/menu1/menu12/menu122/index","meta":{"title":"角色管理","isLink":"","isHide":false,"isKeepAlive":true,"isAffix":false,"isIframe":false,"roles":["admin","common"],"icon":"iconfont icon-caidan"}},{"path":"/menu/menu1/menu12/menu122","name":"menu122","component":"menu/menu1/menu12/menu122/index","meta":{"title":"用户管理","isLink":"","isHide":false,"isKeepAlive":true,"isAffix":false,"isIframe":false,"roles":["admin","common"],"icon":"iconfont icon-caidan"}}]}]}]', false));
+        $menu = new Menu();
+        //一级分类
+        $primary_class = $menu->getMenu([[function ($query) {
+            $query->whereIn('type', ['0', '1', '2']);
+        }]], '*')->map(function ($item) {
+            return [
+                'path'      => $item->path,
+                'name'      => $item->name,
+                'component' => $item->component ?: 'layout/routerView/parent',
+                'redirect'  => in_array($item['type'], ['1', '2'], true) ? '' : $item->redirect,
+                'value'     => $item->id,
+                'parent_id' => $item->parent_id,
+                'meta'      => [
+                    'title'       => $item->title,
+                    'icon'        => $item->icon,
+                    'isLink'      => in_array($item['type'], ['1', '2'], true) ? $item->redirect : false,
+                    'isHide'      => $item->isHide === '1',
+                    'isKeepAlive' => $item->isKeepAlive === '1',
+                    'isAffix'     => $item->isAffix === '1',
+                    'isIframe'    => $item['type'] === '1',
+                    'roles'       => ['admin'],
+                ],
+            ];
+        });
+        $primary_class = unlimited_class(object_to_array($primary_class));
+        return $this->success($primary_class);
     }
 
-    public function saveMenu(Request $request)
+    public function menuDetailSave(Request $request)
     {
         DB::beginTransaction();
         $data = $request::all();
+        if ($data['parent_id'] == $data['id']) {
+            return $this->error('上级分类不能选自己');
+        }
         try {
-            $menu = new Menu();
+            $menu = Menu::find($data['id']);
             $menu->fill($data);
+            $menu->component = $data['component'] ?? '';
+            $menu->icon      = $data['icon'] ?? '';
+            $menu->redirect  = $data['redirect'] ?? '';
+            $menu->path      = $data['path'] ?? '';
+            $menu->options   = $data['options'] ?? '';
             $menu->save();
             $api_resource      = new ApiResource();
             $api_resource_data = $data['api_resource'];
@@ -55,6 +72,19 @@ class MenuController extends Controller
             return $this->error($exception->getMessage());
         }
         return $this->success($data);
+    }
+
+    public function menuDetail($id)
+    {
+        $menu         = new Menu();
+        $api_resource = new ApiResource();
+
+        $class = $menu::find($id)->toArray();
+        if (!$class) {
+            return $this->error('分类不存在');
+        }
+        $class['api_resource'] = $api_resource->getList(['menu_id' => $class['id']], '*');
+        return $this->success($class);
     }
 
     public function menuList()

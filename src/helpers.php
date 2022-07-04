@@ -71,3 +71,13 @@ if (!function_exists('unlimited_class')) {
         return $data;
     }
 }
+
+/**
+ * 对象转数组
+ */
+if (!function_exists('object_to_array')) {
+    function object_to_array($object): array
+    {
+        return json_decode(json_encode($object), true);
+    }
+}

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKiteApiResource extends Migration
+class CreateKiteRoleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateKiteApiResource extends Migration
      */
     public function up()
     {
-        Schema::create('kite_api_resource', function (Blueprint $table) {
+        Schema::create('kite_role', function (Blueprint $table) {
             $table->id();
-            $table->integer('menu_id')->comment('菜单id');
-            $table->enum('api_method', [0, 1, 2, 3, 4])->comment('请求方式')->default(0);
-            $table->string('api_url')->comment('api')->default('');
+            $table->string('role_name')->comment('角色名称');
+            $table->integer('parent_id')->comment('父级');
+            $table->integer('sort')->comment('排序');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateKiteApiResource extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kite_api_resource');
+        Schema::dropIfExists('kite_role');
     }
 }
