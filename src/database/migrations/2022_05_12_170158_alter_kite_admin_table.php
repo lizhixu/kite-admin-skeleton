@@ -14,7 +14,7 @@ class AlterKiteAdminTable extends Migration
     public function up()
     {
         Schema::table('kite_admin', function (Blueprint $table) {
-            $table->string('role')->comment('角色');
+            $table->string('role')->default('')->comment('角色');
         });
     }
 
