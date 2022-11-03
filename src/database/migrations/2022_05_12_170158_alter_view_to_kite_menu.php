@@ -15,8 +15,8 @@ class AlterViewToKiteMenu extends Migration
     {
         Schema::table('kite_menus', function (Blueprint $table) {
             $table->smallInteger('tpl_type')->comment('模板类型 1自定义 2 avue')->default(1);
-            $table->text('options')->comment('页面内容');
-            $table->char('options_type', 1)->comment('页面类型 1 表格 2表单');
+            $table->text('options')->comment('页面内容')->nullable();
+            $table->char('options_type', 1)->comment('页面类型 1 表格 2表单')->default(0);
         });
     }
 

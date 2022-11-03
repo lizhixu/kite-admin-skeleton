@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use iLzx\AdminStarter\Controls\AdminController;
 use iLzx\AdminStarter\Controls\CommonController;
 use iLzx\AdminStarter\Controls\MenuController;
 use iLzx\AdminStarter\Controls\UserController;
@@ -309,6 +310,7 @@ Route::prefix('k-avue')->group(static function () {
     });
     Route::get('captcha/{redomstr}', [CommonController::class, 'captcha']);
     Route::post('user/login', [UserController::class, 'login']);
+    Route::get('get_options',[AdminController::class, 'getOptions']);
 
     Route::middleware(['kite.avue'])->group(function () {
         Route::get('getMenu', [MenuController::class, 'getMenu']);

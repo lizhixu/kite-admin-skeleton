@@ -53,13 +53,13 @@ class MenuController extends Controller
             $menu = Menu::find($data['id']);
             $menu->fill($data);
             $menu->component = $data['component'] ?? '';
-            $menu->icon      = $data['icon'] ?? '';
-            $menu->redirect  = $data['redirect'] ?? '';
-            $menu->path      = $data['path'] ?? '';
-            $menu->options   = $data['options'] ?? '';
+            $menu->icon = $data['icon'] ?? '';
+            $menu->redirect = $data['redirect'] ?? '';
+            $menu->path = $data['path'] ?? '';
+            $menu->options = $data['options'] ?? '';
             $menu->save();
-            $api_resource      = new ApiResource();
-            $api_resource_data = $data['api_resource'];
+            $api_resource = new ApiResource();
+            $api_resource_data = $data['api_resource'] ?? [];
             foreach ($api_resource_data as $value) {
                 if ($value['api_method'] && $value['api_url']) {
                     $api_resource->fill($value);
@@ -76,7 +76,7 @@ class MenuController extends Controller
 
     public function menuDetail($id)
     {
-        $menu         = new Menu();
+        $menu = new Menu();
         $api_resource = new ApiResource();
 
         $class = $menu::find($id)->toArray();
@@ -84,6 +84,7 @@ class MenuController extends Controller
             return $this->error('分类不存在');
         }
         $class['api_resource'] = $api_resource->getList(['menu_id' => $class['id']], '*');
+        $class['options_type'] = (int)$class['options_type'];
         return $this->success($class);
     }
 
@@ -100,9 +101,9 @@ class MenuController extends Controller
     {
         DB::beginTransaction();
         try {
-            $menu            = new Menu();
-            $menu->name      = $request->name;
-            $menu->title     = $request->label;
+            $menu = new Menu();
+            $menu->name = $request->name;
+            $menu->title = $request->label;
             $menu->parent_id = $request->parent_id ?? 0;
             $menu->save();
             DB::commit();
@@ -117,9 +118,9 @@ class MenuController extends Controller
     {
         DB::beginTransaction();
         try {
-            $menu            = Menu::find($request->value);
-            $menu->name      = $request->name;
-            $menu->title     = $request->label;
+            $menu = Menu::find($request->value);
+            $menu->name = $request->name;
+            $menu->title = $request->label;
             $menu->parent_id = $request->parent_id ?? 0;
             $menu->save();
             DB::commit();
@@ -133,7 +134,7 @@ class MenuController extends Controller
     public function menuDelete(Request $request)
     {
         $data = $request::input();
-        $id   = $data['value'];
+        $id = $data['value'];
         $menu = new Menu();
         //下级菜单
         $class = $menu->getMenu(['parent_id' => $id], 'id')->toArray();
