@@ -16,7 +16,7 @@ class AvueTokenIsValid
      * Handle an incoming request.
      *
      * @param Request $request
-     * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse) $next
      * @return Response|RedirectResponse
      */
     public function handle(Request $request, Closure $next)
@@ -24,6 +24,7 @@ class AvueTokenIsValid
         //验证token是否
         $token = $request->header()['authorization'] ?? [];
         if (!$token) {
+            if (env('AUTH_ON') == 0) return $next($request);
             return adminOutput(203);
         } else {
             try {
