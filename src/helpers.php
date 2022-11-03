@@ -13,7 +13,7 @@ if (!function_exists('adminOutput')) {
      * @param string|null $msg
      * @return array
      */
-    function adminOutput(int $status, array|object|null $data = [], ?string $msg = null): array
+    function adminOutput(int $status, $data = [], ?string $msg = null): array
     {
         $msg = $msg ?: Config::get('avue.status.' . $status);
         return ['status' => (int)$status, 'message' => $msg, 'time' => time(), 'data' => $data];
@@ -50,10 +50,14 @@ if (!function_exists('jwt_decode')) {
         return JWT::decode($token, new Key($key, 'HS256'));
     }
 }
-/**
- * 无限级分类
- */
+
 if (!function_exists('unlimited_class')) {
+    /**
+     * 无限级分类
+     * @param $items
+     * @param $parent_id
+     * @return array
+     */
     function unlimited_class($items, $parent_id = 0): array
     {
         $data = [];
@@ -72,12 +76,27 @@ if (!function_exists('unlimited_class')) {
     }
 }
 
-/**
- * 对象转数组
- */
 if (!function_exists('object_to_array')) {
+    /**
+     * 对象转数组
+     * @param $object
+     * @return array
+     */
     function object_to_array($object): array
     {
         return json_decode(json_encode($object), true);
+    }
+}
+if (!function_exists('str_to_avue')) {
+    /**
+     * avue字符串转json
+     * @param $data
+     * @return mixed
+     */
+    function str_to_avue($data)
+    {
+        $data = str_replace(["\r", "\n", ' '], '', $data);
+        $str = preg_replace(["/([a-zA-Z_]+[a-zA-Z0-9_]*)\s*:/", "/:\s*'(.*?)'/"], ['"\1":', ': "\1"'], $data);
+        return json_decode(str_replace(['\'', '\\'], ['"', ''], $str));
     }
 }

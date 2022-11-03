@@ -291,16 +291,15 @@ Route::prefix('k-avue')->group(static function () {
           }
         ]
       }";
-        $str  = preg_replace(["/([a-zA-Z_]+[a-zA-Z0-9_]*)\s*:/", "/:\s*'(.*?)'/"], ['"\1":', ': "\1"'], $data);
-        $str  = str_replace(['\'', '\\'], ['"', ''], $str);
-        echo $str;
-        exit();
-        $arr = explode(':', trim($string, '{}'));
+        $data = str_replace(["\r", "\n", ' '], '', $data);
+        $str = preg_replace(["/([a-zA-Z_]+[a-zA-Z0-9_]*)\s*:/", "/:\s*'(.*?)'/"], ['"\1":', ': "\1"'], $data);
+        $str = str_replace(['\'', '\\'], ['"', ''], $str);
+        dd($str);
+        $arr = explode(':', trim($str, '{}'));
 
+        dd($arr);
         foreach ($arr as $a) {
-            echo $a;
-            echo "<br>";
-            $a         = str_replace('\\', '', $a);
+            $a = str_replace('\\', '', $a);
             $arr_value = explode(':', $a);
             print_r($arr_value);
             echo "<br>";
@@ -310,7 +309,7 @@ Route::prefix('k-avue')->group(static function () {
     });
     Route::get('captcha/{redomstr}', [CommonController::class, 'captcha']);
     Route::post('user/login', [UserController::class, 'login']);
-    Route::get('get_options',[AdminController::class, 'getOptions']);
+    Route::get('get_options', [AdminController::class, 'getOptions']);
 
     Route::middleware(['kite.avue'])->group(function () {
         Route::get('getMenu', [MenuController::class, 'getMenu']);

@@ -92,7 +92,7 @@ class MenuController extends Controller
     {
         $menu = new Menu();
         //一级分类
-        $primary_class = $menu->getMenu([], 'id as value', 'title as label', 'name', 'type', 'parent_id');
+        $primary_class = $menu->getMenu([], 'id as value', 'title as label', 'name', 'type', 'tpl_type', 'parent_id');
         $primary_class = unlimited_class($primary_class->toArray());
         return $this->success($primary_class);
     }
