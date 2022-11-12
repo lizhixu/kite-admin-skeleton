@@ -19,10 +19,15 @@ class MenuController extends Controller
         $primary_class = $menu->getMenu([[function ($query) {
             $query->whereIn('type', ['0', '1', '2']);
         }]], '*')->map(function ($item) {
+            if ($item->tpl_type == 2) {
+                $component = $item->options_type == 1 ? 'avue/crud_tpl' : '';
+            } else {
+                $component = $item->component ?: 'layout/routerView/parent';
+            }
             return [
                 'path'      => $item->path,
                 'name'      => $item->name,
-                'component' => $item->component ?: 'layout/routerView/parent',
+                'component' => $component,
                 'redirect'  => in_array($item['type'], ['1', '2'], true) ? '' : $item->redirect,
                 'value'     => $item->id,
                 'parent_id' => $item->parent_id,
@@ -85,6 +90,7 @@ class MenuController extends Controller
         }
         $class['api_resource'] = $api_resource->getList(['menu_id' => $class['id']], '*');
         $class['options_type'] = (int)$class['options_type'];
+        $class['options_value'] = str_to_avue($class['options']);
         return $this->success($class);
     }
 

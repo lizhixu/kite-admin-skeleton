@@ -95,8 +95,11 @@ if (!function_exists('str_to_avue')) {
      */
     function str_to_avue($data)
     {
-        $data = str_replace(["\r", "\n", ' '], '', $data);
-        $str = preg_replace(["/([a-zA-Z_]+[a-zA-Z0-9_]*)\s*:/", "/:\s*'(.*?)'/"], ['"\1":', ': "\1"'], $data);
-        return json_decode(str_replace(['\'', '\\'], ['"', ''], $str));
+        $data = str_replace(["\r", "\n", "\t"], '', $data);
+        $data = str_replace(["'true'", "'false'"], ['true', 'false'], $data);
+        $data = str_replace(['"true"', '"false"'], ['true', 'false'], $data);
+//        $str = preg_replace(["/([a-zA-Z_]+[a-zA-Z0-9_]*)\s*:/", "/:\s*'(.*?)'/"], ['"\1":', ': "\1"'], $data);
+
+        return json_decode(str_replace(['\'', '\\'], ['"', ''], $data));
     }
 }
