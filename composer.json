@@ -13,7 +13,8 @@
         "php": "^7.4|^8.0|^8.1",
         "illuminate/support": "^v8.70.2",
         "gregwar/captcha": "^1.1",
-        "firebase/php-jwt": "^5.5"
+        "firebase/php-jwt": "^5.5",
+        "hammerstone/fast-paginate": "^0.1.10"
     },
     "autoload": {
         "psr-4": {

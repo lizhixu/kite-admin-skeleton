@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use iLzx\AdminStarter\Controls\AdminController;
 use iLzx\AdminStarter\Controls\CommonController;
 use iLzx\AdminStarter\Controls\MenuController;
+use iLzx\AdminStarter\Controls\RoleController;
 use iLzx\AdminStarter\Controls\UserController;
 
 Route::prefix('k-avue')->group(static function () {
@@ -27,5 +28,17 @@ Route::prefix('k-avue')->group(static function () {
         });
         Route::get('user/getTopMenu', [UserController::class, 'getTopMenu']);
         Route::get('user/getUserInfo', [UserController::class, 'getUserInfo']);
+        Route::prefix('crud')->group(function () {
+            Route::prefix('admin_manage')->group(function () {
+                Route::get('list', [AdminController::class, 'getManageList']);
+            });
+            Route::prefix('role_manage')->group(function () {
+                Route::get('list', [RoleController::class, 'getManageList']);
+                Route::post('add', [RoleController::class, 'addRole']);
+                Route::put('update', [RoleController::class, 'updateRole']);
+                Route::delete('del', [RoleController::class, 'delRole']);
+                Route::get('role_options', [RoleController::class, 'getOptions']);
+            });
+        });
     });
 });

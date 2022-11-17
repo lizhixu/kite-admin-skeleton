@@ -58,14 +58,14 @@ if (!function_exists('unlimited_class')) {
      * @param $parent_id
      * @return array
      */
-    function unlimited_class($items, $parent_id = 0): array
+    function unlimited_class($items, $key = 'value', $parent_key = 'parent_id', $parent_id = 0): array
     {
         $data = [];
         foreach ($items as $item) {
-            $this_parent_id = $item['value'];
-            if ($item['parent_id'] === $parent_id) {
+            $this_parent_id = $item[$key];
+            if ($item[$parent_key] === $parent_id) {
                 $item_tmp = $item;
-                $children = unlimited_class($items, $this_parent_id);
+                $children = unlimited_class($items, $key, $parent_key, $this_parent_id);
                 if ($children) {
                     $item_tmp['children'] = $children;
                 }

@@ -4,6 +4,7 @@
 namespace iLzx\AdminStarter;
 
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use iLzx\AdminStarter\Commands\DatabasesCommand;
 use iLzx\AdminStarter\Facades\JWT\Facade\JWT;
