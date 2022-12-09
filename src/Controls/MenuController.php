@@ -2,9 +2,11 @@
 
 namespace iLzx\AdminStarter\Controls;
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use iLzx\AdminStarter\Models\Menu;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use iLzx\AdminStarter\Models\ApiResource;
@@ -50,7 +52,7 @@ class MenuController extends Controller
     public function menuDetailSave(Request $request)
     {
         DB::beginTransaction();
-        $data = $request::all();
+        $data = $request->all();
         if ($data['parent_id'] == $data['id']) {
             return $this->error('上级分类不能选自己');
         }
@@ -63,10 +65,11 @@ class MenuController extends Controller
             $menu->path = $data['path'] ?? '';
             $menu->options = $data['options'] ?? '';
             $menu->save();
-            $api_resource = new ApiResource();
             $api_resource_data = $data['api_resource'] ?? [];
             foreach ($api_resource_data as $value) {
-                if ($value['api_method'] && $value['api_url']) {
+                $api_resource = isset($value['id']) ? ApiResource::find($value['id']) : new ApiResource();
+                $value['menu_id'] = $data['id'];
+                if (isset($value['api_method']) && $value['api_url']) {
                     $api_resource->fill($value);
                     $api_resource->save();
                 }
@@ -105,6 +108,14 @@ class MenuController extends Controller
 
     public function menuSave(MenuRequest $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name'  => 'required|unique:kite_menus,name',
+            'label' => 'required'
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return $this->error($errors->first());
+        }
         DB::beginTransaction();
         try {
             $menu = new Menu();
@@ -122,6 +133,14 @@ class MenuController extends Controller
 
     public function menuUpdate(MenuRequest $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name'  => ['required', Rule::unique('kite_menus')->ignore($request->value)],
+            'label' => 'required'
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return $this->error($errors->first());
+        }
         DB::beginTransaction();
         try {
             $menu = Menu::find($request->value);
@@ -139,7 +158,10 @@ class MenuController extends Controller
 
     public function menuDelete(Request $request)
     {
-        $data = $request::input();
+        $request->validate([
+            'value' => 'required',
+        ]);
+        $data = $request->input();
         $id = $data['value'];
         $menu = new Menu();
         //下级菜单

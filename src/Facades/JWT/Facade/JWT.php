@@ -2,6 +2,7 @@
 
 namespace iLzx\AdminStarter\Facades\JWT\Facade;
 
+use Firebase\JWT\ExpiredException;
 use iLzx\AdminStarter\Models\Admin;
 
 class JWT
@@ -24,8 +25,8 @@ class JWT
      */
     public static function createToken($data, $id, $checked, string $sub = 'kite-admin-token'): string
     {
-        $exp     = $checked ? 7 * 86400 : 3600 * 2;
-        $key     = self::$config['JWT_SECRET'];
+        $exp = $checked ? 7 * 86400 : 3600 * 2;
+        $key = self::$config['JWT_SECRET'];
         $payload = [
             'data' => $data,
             'iss'  => self::$config['JWT_ISS'],
@@ -57,10 +58,14 @@ class JWT
         //检查是否有效
         if ($jwt->nbf <= time() && $jwt->exp > time()) {
             //验证管理员状态
-            return Admin::where([
+            $admin = Admin::where([
                 ['id', '=', $jwt->data->id],
                 ['status', '=', 1],
-            ])->select('id', 'username', 'name', 'avatar')->first();
+            ])->select('id', 'username', 'name', 'avatar', 'role')->first();
+            if (!$admin) {
+                throw new ExpiredException('账户已封禁');
+            }
+            return $admin;
         }
         return false;
     }

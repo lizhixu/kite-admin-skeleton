@@ -14,7 +14,11 @@ Route::prefix('k-avue')->group(static function () {
     Route::get('captcha/{redomstr}', [CommonController::class, 'captcha']);
     Route::post('user/login', [UserController::class, 'login']);
     Route::get('get_options', [AdminController::class, 'getOptions']);
-
+    //公共路由
+    Route::prefix('common')->group(static function () {
+        Route::get('get_menu_options', [CommonController::class, 'menuOptions']);
+        Route::get('get_rule_options', [CommonController::class, 'ruleOptions']);
+    });
     Route::middleware(['kite.avue'])->group(function () {
         Route::get('getMenu', [MenuController::class, 'getMenu']);
         Route::prefix('menu')->group(function () {
