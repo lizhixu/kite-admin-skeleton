@@ -14,20 +14,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class RoleController extends Controller
 {
-    public function getOptions(Request $request)
-    {
-        $menu = new Menu();
-        $class = $menu->getMenu([], 'id', 'title', 'parent_id')->toArray();
-
-        $role = new Role();
-        $role_list = $role->getList([], 'id', 'role_name', 'parent_id')->toArray();
-        $data = [
-            'menu' => unlimited_class($class, 'id'),
-            'role' => unlimited_class($role_list, 'id'),
-        ];
-        return $this->success($data);
-    }
-
     public function getManageList(Request $request)
     {
         $admin = new Role();
@@ -51,6 +37,7 @@ class RoleController extends Controller
         $role = new Role();
         $role->fill($request->all());
         $role->menu_ids = json_encode($request->menu_ids);
+        $role->sort = 0;
         $res = $role->save();
         return $this->success($res);
     }
