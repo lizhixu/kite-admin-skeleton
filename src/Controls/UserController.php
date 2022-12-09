@@ -3,9 +3,11 @@
 namespace iLzx\AdminStarter\Controls;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use iLzx\AdminStarter\Facades\JWT\JWT;
 use iLzx\AdminStarter\Models\Admin;
+use iLzx\AdminStarter\Models\Role;
 use iLzx\AdminStarter\Rules\Captcha;
 
 class UserController extends Controller
@@ -16,7 +18,7 @@ class UserController extends Controller
             'username' => 'required',
             'password' => 'required',
             'redomStr' => 'required',
-            'code' => ['required', new Captcha($request->redomStr)],
+            'code'     => ['required', new Captcha($request->redomStr)],
         ]);
         $errors = $validate->errors()->first();
         if ($errors) {
@@ -30,6 +32,7 @@ class UserController extends Controller
             return adminOutput(202, []);
         }
         $jwt = JWT::createToken($admin, $admin->id, $request->checked);
+        Cache::forget('phrase' . $request->redomStr);
         return adminOutput(200, ['token' => $jwt]);
     }
 
@@ -43,7 +46,9 @@ class UserController extends Controller
         $user_info = config('userInfo');
         $user_info->time = time();
         $user_info->roles = ['admin'];
-        $user_info->authBtnList = ['btn.add', 'btn.del', 'btn.edit', 'btn.link'];
+        $role = json_decode($user_info->role, true);
+        $btn_list = (new Role())->getButtenRole(end($role));
+        $user_info->authBtnList = $btn_list;
         return adminOutput(200, $user_info);
     }
 }
