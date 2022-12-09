@@ -31,13 +31,15 @@ Route::prefix('k-avue')->group(static function () {
         Route::prefix('crud')->group(function () {
             Route::prefix('admin_manage')->group(function () {
                 Route::get('list', [AdminController::class, 'getManageList']);
+                Route::post('add', [AdminController::class, 'addManage']);
+                Route::put('update', [AdminController::class, 'updateManage']);
+                Route::delete('del', [AdminController::class, 'delManage']);
             });
             Route::prefix('role_manage')->group(function () {
                 Route::get('list', [RoleController::class, 'getManageList']);
                 Route::post('add', [RoleController::class, 'addRole']);
                 Route::put('update', [RoleController::class, 'updateRole']);
                 Route::delete('del', [RoleController::class, 'delRole']);
-                Route::get('role_options', [RoleController::class, 'getOptions']);
             });
         });
     });
