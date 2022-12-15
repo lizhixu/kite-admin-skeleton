@@ -37,7 +37,6 @@ class AdminServiceProvider extends ServiceProvider
             __DIR__ . '/Config/avue.php' => config_path('avue.php'),
         ], 'config');
 
-        $this->addMiddlewareAlias('kite.avue', AvueTokenIsValid::class);
         $this->loadRoutesFrom(__DIR__ . '/Routes/routes.php');
         $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
         if ($this->app->runningInConsole()) {

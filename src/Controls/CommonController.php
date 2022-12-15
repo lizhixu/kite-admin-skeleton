@@ -6,9 +6,11 @@ use Gregwar\Captcha\CaptchaBuilder;
 use Illuminate\Support\Facades\Cache;
 use iLzx\AdminStarter\Models\Menu;
 use iLzx\AdminStarter\Models\Role;
+use iLzx\AdminStarter\Traits\ReponseTrait;
 
-class CommonController extends Controller
+class CommonController extends \Illuminate\Routing\Controller
 {
+    use ReponseTrait;
     public function captcha($redomstr)
     {
         $builder = new CaptchaBuilder(4);

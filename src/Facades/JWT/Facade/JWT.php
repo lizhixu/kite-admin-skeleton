@@ -18,6 +18,7 @@ class JWT
      * 创建token
      * @param $data
      * @param $id
+     * @param $checked
      * @param string $sub
      * @return string
      * @author lzx

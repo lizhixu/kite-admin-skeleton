@@ -10,17 +10,34 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use iLzx\AdminStarter\Models\ApiResource;
+use iLzx\AdminStarter\Models\Role;
 use iLzx\AdminStarter\Requests\MenuRequest;
 
 class MenuController extends Controller
 {
+    protected $noNeedRight = [
+        'k-avue/getMenu'
+    ];
+
     public function getMenu(): array
     {
-        $menu = new Menu();
-        //一级分类
-        $primary_class = $menu->getMenu([[function ($query) {
+        $conditions = [[function ($query) {
             $query->whereIn('type', ['0', '1', '2']);
-        }]], '*')->map(function ($item) {
+        }]];
+        $menu = new Menu();
+        //权限
+        $user_info = config('userInfo');
+        $role = json_decode($user_info->role, true);
+        $role_id = end($role);
+        if ($role_id != 1) {
+            $role_list = (new Role())->getSingle([['id', $role_id]], 'menu_ids');
+            $menu_ids = explode(',', str_replace(['[', ']'], [''], $role_list->menu_ids));
+            $conditions[] = [function ($query) use ($menu_ids) {
+                $query->whereIn('id', $menu_ids);
+            }];
+        }
+
+        $primary_class = $menu->getMenu($conditions, '*')->map(function ($item) {
             if ($item->tpl_type == 2) {
                 $component = $item->options_type == 1 ? 'avue/crud_tpl' : '';
             } else {

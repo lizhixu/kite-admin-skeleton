@@ -12,6 +12,13 @@ use iLzx\AdminStarter\Rules\Captcha;
 
 class UserController extends Controller
 {
+    protected $noNeedRight = [
+        'k-avue/user/getUserInfo',
+    ];
+    protected $noNeedLogin = [
+        'k-avue/user/login',
+    ];
+
     public function login(Request $request): array
     {
         $validate = Validator::make($request->all(), [
@@ -24,21 +31,20 @@ class UserController extends Controller
         if ($errors) {
             return adminOutput(201, [], $errors);
         }
-        $admin = Admin::where([
+        $admin_model = new Admin();
+        $admin = $admin_model->where([
             ['username', '=', $request->username],
             ['password', '=', md5('kite' . $request->password)],
         ])->select('id', 'username', 'avatar')->first();
         if (!$admin) {
             return adminOutput(202, []);
         }
+        $admin_model->where('id', $admin->id)->update([
+            'last_login_time' => date('Y-m-d H:i:s')
+        ]);
         $jwt = JWT::createToken($admin, $admin->id, $request->checked);
         Cache::forget('phrase' . $request->redomStr);
         return adminOutput(200, ['token' => $jwt]);
-    }
-
-    public function getTopMenu(Request $request)
-    {
-        return adminOutput(200, ['header' => $request]);
     }
 
     public function getUserInfo(): array
