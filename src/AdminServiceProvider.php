@@ -45,12 +45,6 @@ class AdminServiceProvider extends ServiceProvider
                 CreateUserCommand::class,
             ]);
         }
-
-        $this->loadTranslationsFrom(__DIR__ . '/Resources/lang', 'admin');
-
-        $this->publishes([
-            __DIR__ . '/Resources/lang' => resource_path('lang/vendor/admin'),
-        ]);
     }
 
     /**
