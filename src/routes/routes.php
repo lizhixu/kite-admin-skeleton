@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use iLzx\AdminStarter\Controls\AdminController;
 use iLzx\AdminStarter\Controls\CommonController;
+use iLzx\AdminStarter\Controls\IconManageController;
 use iLzx\AdminStarter\Controls\MenuController;
 use iLzx\AdminStarter\Controls\RoleController;
 use iLzx\AdminStarter\Controls\UserController;
@@ -20,6 +21,7 @@ Route::prefix('k-avue')->group(static function () {
     Route::prefix('common')->group(static function () {
         Route::get('get_menu_options', [CommonController::class, 'menuOptions']);
         Route::get('get_rule_options', [CommonController::class, 'ruleOptions']);
+        Route::get('get_icon_options', [IconManageController::class, 'iconOptions']);
     });
     //菜单
     Route::prefix('menu')->group(function () {
@@ -45,5 +47,17 @@ Route::prefix('k-avue')->group(static function () {
             Route::put('update', [RoleController::class, 'updateRole']);
             Route::delete('del', [RoleController::class, 'delRole']);
         });
+    });
+    //图标管理
+    Route::prefix('icon_manage')->group(function () {
+        Route::get('categorys', [IconManageController::class, 'categorysList']);
+        Route::post('categorys_add', [IconManageController::class, 'categorysAdd']);
+        Route::put('categorys_update', [IconManageController::class, 'categorysUpdate']);
+        Route::delete('categorys_del', [IconManageController::class, 'categorysDelete']);
+        Route::get('get_icon_url', [IconManageController::class, 'getIconUrl']);
+        Route::post('icon_url', [IconManageController::class, 'iconUrl']);
+        Route::post('add_icon', [IconManageController::class, 'iconAdd']);
+        Route::get('icon_list/{category_alias}', [IconManageController::class, 'iconList']);
+        Route::delete('icon_del/{id}', [IconManageController::class, 'iconDel']);
     });
 });
