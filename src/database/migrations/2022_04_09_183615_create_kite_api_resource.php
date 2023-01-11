@@ -15,7 +15,7 @@ class CreateKiteApiResource extends Migration
     {
         Schema::create('kite_api_resource', function (Blueprint $table) {
             $table->id();
-            $table->integer('menu_id')->comment('菜单id');
+            $table->integer('menu_id')->comment('菜单id')->index();
             $table->enum('api_method', [0, 1, 2, 3, 4])->comment('请求方式')->default(0);
             $table->string('api_url')->comment('api')->default('');
             $table->timestamps();

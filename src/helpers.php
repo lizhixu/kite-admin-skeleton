@@ -55,7 +55,9 @@ if (!function_exists('unlimited_class')) {
     /**
      * 无限级分类
      * @param $items
-     * @param $parent_id
+     * @param string $key
+     * @param string $parent_key
+     * @param int $parent_id
      * @return array
      */
     function unlimited_class($items, $key = 'value', $parent_key = 'parent_id', $parent_id = 0): array
@@ -101,5 +103,33 @@ if (!function_exists('str_to_avue')) {
 //        $str = preg_replace(["/([a-zA-Z_]+[a-zA-Z0-9_]*)\s*:/", "/:\s*'(.*?)'/"], ['"\1":', ': "\1"'], $data);
 
         return json_decode(str_replace(['\'', '\\'], ['"', ''], $data));
+    }
+}
+
+if (!function_exists('get_user_info')) {
+    /**
+     * 获取当前管理员信息
+     * @return array
+     */
+    function get_user_info(): array
+    {
+        return json_decode(config('userInfo'), true);
+    }
+}
+
+if (!function_exists('array_value_group')) {
+    /**
+     * 二维数组根据某一字段分组，并以这个字段值为key
+     * @param $array
+     * @param $flag
+     * @return array
+     */
+    function array_value_group($array, $flag): array
+    {
+        $tmp_arr = [];
+        foreach ($array as $value) {
+            $tmp_arr[$value[$flag]][] = $value;
+        }
+        return $tmp_arr;
     }
 }

@@ -6,6 +6,8 @@ namespace iLzx\AdminStarter\Models;
 class ApiResource extends Model
 {
     protected $table = 'kite_api_resource';
+    protected $fillable = ['id', 'menu_id', 'api_method', 'api_url', 'created_at', 'updated_at'];
+    protected $guarded = [];
 
     public function getList($conditions, ...$select)
     {

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
 use iLzx\AdminStarter\Models\Admin;
 use iLzx\AdminStarter\Models\Menu;
+use iLzx\AdminStarter\Models\Role;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminController extends Controller
@@ -37,7 +38,9 @@ class AdminController extends Controller
         $list = $admin->groupBy('id')->where($where)->select(['id', 'name', 'avatar', 'username', 'role', 'status', 'last_login_time'])->fastPaginate($page_size);
         $items = collect($list->items())->map(function ($item) {
             $item->status = (string)$item->status;
-            $item->role = json_decode($item->role);
+            $role = json_decode($item->role, true);
+            $item->role = $role;
+            $item->role_name = Role::find(end($role))->role_name;
             return $item;
         });
         $data = [
