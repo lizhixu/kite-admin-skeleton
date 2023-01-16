@@ -15,7 +15,7 @@ class DatabasesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'avue:db-cache';
+    protected $signature = 'kite:db-cache';
 
     /**
      * 命令描述

@@ -52,6 +52,7 @@ class UserController extends Controller
         $user_info = config('userInfo');
         $user_info->time = time();
         $user_info->roles = ['admin'];
+        $user_info->avatar ??= 'https://dd-static.jd.com/ddimg/jfs/t1/167172/3/26848/10216/61f228a0Ecd5de48a/4ef7cc601beead36.png';
         $role = json_decode($user_info->role, true);
         $btn_list = (new Role())->getButtenRole(end($role));
         $user_info->authBtnList = $btn_list;

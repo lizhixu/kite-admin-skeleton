@@ -40,7 +40,8 @@ class AdminController extends Controller
             $item->status = (string)$item->status;
             $role = json_decode($item->role, true);
             $item->role = $role;
-            $item->role_name = Role::find(end($role))->role_name;
+            $item->avatar ??= 'https://dd-static.jd.com/ddimg/jfs/t1/167172/3/26848/10216/61f228a0Ecd5de48a/4ef7cc601beead36.png';
+            $item->role_name = Role::find(end($role))?->role_name;
             return $item;
         });
         $data = [

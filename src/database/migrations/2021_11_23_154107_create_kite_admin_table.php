@@ -15,7 +15,7 @@ class CreateKiteAdminTable extends Migration
     {
         Schema::create('kite_admin', function (Blueprint $table) {
             $table->id();
-            $table->string('username', 11)->comment('登录名');
+            $table->string('username', 11)->comment('登录名')->unique();
             $table->string('password')->comment('密码');
             $table->string('name', 12)->comment('用户名');
             $table->string('avatar')->nullable()->comment('头像');

@@ -14,7 +14,7 @@ class Setting extends Model
 
     public static function get($name)
     {
-        return self::where('name', $name)->select('value')->first()->value;
+        return self::where('name', $name)->select('value')->first()?->value;
     }
 
     public static function set($data)

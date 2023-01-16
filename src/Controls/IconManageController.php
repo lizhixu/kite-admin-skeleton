@@ -4,6 +4,7 @@ namespace iLzx\AdminStarter\Controls;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use iLzx\AdminStarter\Models\Icon;

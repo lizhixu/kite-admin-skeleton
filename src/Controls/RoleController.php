@@ -45,10 +45,11 @@ class RoleController extends Controller
     public function updateRole(Request $request)
     {
         $request->validate([
-            'id'        => 'required|exists:kite_role,id',
+            'id'        => 'required|exists:kite_role,id|different:parent_id',
             'role_name' => 'required',
             'sort'      => 'numeric',
         ]);
+        $request->offsetSet('parent_id', $request->parent_id ?? 0);
         unset($request->created_at, $request->updated_at);
         $role = Role::find($request->id);
         $role->fill($request->all());
