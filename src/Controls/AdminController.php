@@ -80,13 +80,13 @@ class AdminController extends Controller
             'status'   => 'required|in:0,1',
             'username' => ['required', Rule::unique('kite_admin')->ignore($request->id),],
         ]);
+        $admin = Admin::find($request->id);
         if (filled($request->password)) {
             $request->offsetSet('password', md5('kite' . $request->password));
         } else {
-            unset($request->password);
+            $request->offsetSet('password', $admin->password);
         }
         unset($request->created_at, $request->updated_at);
-        $admin = Admin::find($request->id);
         $admin->fill($request->all());
         $admin->updated_at = date('Y-m-d H:i:s');
         $res = $admin->save();
