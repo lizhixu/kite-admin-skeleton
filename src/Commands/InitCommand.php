@@ -44,7 +44,7 @@ class InitCommand extends Command
     public function handle()
     {
         //进度条
-        $bar = $this->output->createProgressBar(4);
+        $bar = $this->output->createProgressBar(5);
         $bar->start();
         try {
             //1. migrate
@@ -58,6 +58,9 @@ class InitCommand extends Command
             $bar->advance();
             //4. 基础数据填充
             Artisan::call('db:seed', ['--class' => '\iLzx\AdminStarter\Database\Seeds\DatabaseSeeder']);
+            $bar->advance();
+            //5.创建软链接
+            Artisan::call('storage:link');
             $bar->finish();
             $this->output->success('数据初始化完成！请保存超级管理员密码，关闭控制台后密码无法找回！');
             $this->output->table(['超级管理员账号', '超级管理员密码'], $admin);

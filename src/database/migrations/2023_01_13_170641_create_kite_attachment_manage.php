@@ -21,7 +21,6 @@ class CreateKiteAttachmentManage extends Migration
             $table->string('file_ext', 50)->comment('mime类型');
             $table->string('file_size')->comment('文件大小,kb');
             $table->integer('admin_id')->comment('上传管理员')->index();
-            $table->tinyInteger('is_delete')->comment('是否删除:1是,0否')->default(0);
             $table->timestamps();
         });
     }

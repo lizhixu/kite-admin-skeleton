@@ -109,9 +109,9 @@ if (!function_exists('str_to_avue')) {
 if (!function_exists('get_user_info')) {
     /**
      * 获取当前管理员信息
-     * @return array
+     * @return array|null
      */
-    function get_user_info(): array
+    function get_user_info(): array|null
     {
         return json_decode(config('userInfo'), true);
     }

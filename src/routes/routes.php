@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use iLzx\AdminStarter\Controls\AdminController;
+use iLzx\AdminStarter\Controls\UpdateLogController;
 use iLzx\AdminStarter\Controls\CommonController;
 use iLzx\AdminStarter\Controls\IconManageController;
 use iLzx\AdminStarter\Controls\MenuController;
@@ -22,6 +23,7 @@ Route::prefix('k-avue')->group(static function () {
         Route::get('get_menu_options', [CommonController::class, 'menuOptions']);
         Route::get('get_rule_options', [CommonController::class, 'ruleOptions']);
         Route::get('get_icon_options', [IconManageController::class, 'iconOptions']);
+        Route::post('upload', [UpdateLogController::class, 'upload']);
     });
     //菜单
     Route::prefix('menu')->group(function () {
@@ -46,6 +48,9 @@ Route::prefix('k-avue')->group(static function () {
             Route::post('add', [RoleController::class, 'addRole']);
             Route::put('update', [RoleController::class, 'updateRole']);
             Route::delete('del', [RoleController::class, 'delRole']);
+        });
+        Route::prefix('upload_log')->group(function () {
+            Route::get('list', [UpdateLogController::class, 'getList']);
         });
     });
     //图标管理
