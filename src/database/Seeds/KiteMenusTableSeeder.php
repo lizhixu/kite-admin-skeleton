@@ -14,12 +14,12 @@ class KiteMenusTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('kite_menus')->delete();
-
+        
         \DB::table('kite_menus')->insert(array (
-            0 =>
+            0 => 
             array (
                 'component' => 'home/index',
                 'created_at' => '2022-04-29 00:31:00',
@@ -39,7 +39,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '0',
                 'updated_at' => '2022-09-23 13:04:50',
             ),
-            1 =>
+            1 => 
             array (
                 'component' => '',
                 'created_at' => '2022-04-29 16:38:25',
@@ -59,7 +59,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '0',
                 'updated_at' => '2022-10-03 02:53:28',
             ),
-            2 =>
+            2 => 
             array (
                 'component' => '',
                 'created_at' => '2022-04-28 08:40:35',
@@ -79,7 +79,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '0',
                 'updated_at' => '2022-04-28 10:37:02',
             ),
-            3 =>
+            3 => 
             array (
                 'component' => 'setting/permission/menus',
                 'created_at' => '2022-04-28 00:46:52',
@@ -99,7 +99,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '0',
                 'updated_at' => '2022-04-28 00:55:11',
             ),
-            4 =>
+            4 => 
             array (
                 'component' => 'setting/permission/admin_manage',
                 'created_at' => '2022-04-28 10:08:06',
@@ -254,7 +254,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '0',
                 'updated_at' => '2022-11-15 00:45:34',
             ),
-            5 =>
+            5 => 
             array (
                 'component' => 'setting/permission/role_manage',
                 'created_at' => '2022-04-28 11:14:43',
@@ -371,7 +371,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '0',
                 'updated_at' => '2022-11-15 00:48:28',
             ),
-            6 =>
+            6 => 
             array (
                 'component' => '',
                 'created_at' => '2022-10-03 03:14:33',
@@ -391,27 +391,27 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '0',
                 'updated_at' => '2022-11-15 04:04:01',
             ),
-            7 =>
+            7 => 
             array (
-                'component' => 'setting/explorer/attachment_manage',
-                'created_at' => '2022-10-02 03:49:31',
-                'icon' => 'iconfont icon-fujian',
+                'component' => 'setting/log/upload_log',
+                'created_at' => '2022-09-30 11:49:31',
+                'icon' => 'el-icon-upload2',
                 'id' => 10,
                 'isAffix' => '0',
                 'isHide' => '0',
                 'isKeepAlive' => '1',
-                'name' => 'attachment',
+                'name' => 'upload_log',
                 'options' => '',
                 'options_type' => '0',
-                'parent_id' => 9,
-                'path' => '/setting/explorer/file',
+                'parent_id' => 38,
+                'path' => '/setting/log/upload_log',
                 'redirect' => '',
-                'title' => '附件管理',
+                'title' => '文件上传日志',
                 'tpl_type' => 1,
                 'type' => '0',
-                'updated_at' => '2022-11-22 19:54:06',
+                'updated_at' => '2023-02-20 07:44:43',
             ),
-            8 =>
+            8 => 
             array (
                 'component' => 'setting/explorer/icon_manage',
                 'created_at' => '2022-11-17 10:36:23',
@@ -431,7 +431,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '0',
                 'updated_at' => '2022-11-21 03:23:52',
             ),
-            9 =>
+            9 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-21 13:36:49',
@@ -451,7 +451,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-11-21 13:37:28',
             ),
-            10 =>
+            10 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-22 07:10:11',
@@ -471,7 +471,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-11-22 07:10:11',
             ),
-            11 =>
+            11 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-22 07:18:39',
@@ -491,7 +491,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-11-22 07:18:39',
             ),
-            12 =>
+            12 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-22 15:52:01',
@@ -511,7 +511,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-11-22 23:58:42',
             ),
-            13 =>
+            13 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-22 08:01:27',
@@ -531,7 +531,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-11-22 08:01:27',
             ),
-            14 =>
+            14 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-22 08:02:21',
@@ -551,7 +551,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-11-22 08:02:21',
             ),
-            15 =>
+            15 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-22 16:03:47',
@@ -571,7 +571,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-11-22 16:03:47',
             ),
-            16 =>
+            16 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-22 16:05:06',
@@ -591,7 +591,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-11-22 16:05:06',
             ),
-            17 =>
+            17 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-22 16:05:27',
@@ -611,7 +611,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-11-22 16:05:27',
             ),
-            18 =>
+            18 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-22 16:05:39',
@@ -631,7 +631,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-11-22 16:05:39',
             ),
-            19 =>
+            19 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-22 03:18:56',
@@ -651,7 +651,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-12-23 02:24:28',
             ),
-            20 =>
+            20 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-22 19:19:13',
@@ -671,7 +671,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-12-23 10:43:53',
             ),
-            21 =>
+            21 => 
             array (
                 'component' => '',
                 'created_at' => '2022-11-22 19:25:20',
@@ -691,67 +691,27 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-12-23 10:44:23',
             ),
-            22 =>
+            22 => 
             array (
                 'component' => '',
-                'created_at' => '2022-11-22 19:27:07',
+                'created_at' => '2022-11-22 11:27:07',
                 'icon' => '',
                 'id' => 26,
                 'isAffix' => '0',
                 'isHide' => '0',
                 'isKeepAlive' => '1',
-                'name' => 'attachment_add',
+                'name' => 'attachment_list',
                 'options' => '',
                 'options_type' => '0',
                 'parent_id' => 10,
                 'path' => '',
                 'redirect' => '',
-                'title' => '新增',
+                'title' => '查看列表',
                 'tpl_type' => 1,
                 'type' => '3',
-                'updated_at' => '2022-11-22 19:27:07',
+                'updated_at' => '2023-02-20 08:09:53',
             ),
-            23 =>
-            array (
-                'component' => '',
-                'created_at' => '2022-11-23 03:27:24',
-                'icon' => '',
-                'id' => 27,
-                'isAffix' => '0',
-                'isHide' => '0',
-                'isKeepAlive' => '1',
-                'name' => 'attachment_edit',
-                'options' => '',
-                'options_type' => '0',
-                'parent_id' => 10,
-                'path' => '',
-                'redirect' => '',
-                'title' => '编辑',
-                'tpl_type' => 1,
-                'type' => '3',
-                'updated_at' => '2022-11-23 03:27:24',
-            ),
-            24 =>
-            array (
-                'component' => '',
-                'created_at' => '2022-12-09 05:08:41',
-                'icon' => '',
-                'id' => 28,
-                'isAffix' => '0',
-                'isHide' => '0',
-                'isKeepAlive' => '1',
-                'name' => 'attachment_del',
-                'options' => '',
-                'options_type' => '0',
-                'parent_id' => 10,
-                'path' => '',
-                'redirect' => '',
-                'title' => '删除',
-                'tpl_type' => 1,
-                'type' => '3',
-                'updated_at' => '2022-12-09 05:08:41',
-            ),
-            25 =>
+            23 => 
             array (
                 'component' => '',
                 'created_at' => '2022-12-23 10:46:05',
@@ -771,7 +731,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-12-23 10:47:23',
             ),
-            26 =>
+            24 => 
             array (
                 'component' => '',
                 'created_at' => '2022-12-23 10:48:25',
@@ -791,7 +751,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-12-23 10:48:25',
             ),
-            27 =>
+            25 => 
             array (
                 'component' => '',
                 'created_at' => '2022-12-23 10:48:39',
@@ -811,7 +771,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2022-12-23 10:48:39',
             ),
-            28 =>
+            26 => 
             array (
                 'component' => '',
                 'created_at' => '2023-02-07 21:05:35',
@@ -831,7 +791,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2023-02-07 21:05:35',
             ),
-            29 =>
+            27 => 
             array (
                 'component' => '',
                 'created_at' => '2023-02-08 05:08:30',
@@ -851,7 +811,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2023-02-08 05:08:30',
             ),
-            30 =>
+            28 => 
             array (
                 'component' => '',
                 'created_at' => '2023-02-08 05:09:56',
@@ -871,7 +831,7 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2023-02-08 05:09:56',
             ),
-            31 =>
+            29 => 
             array (
                 'component' => '',
                 'created_at' => '2023-02-08 05:11:38',
@@ -891,8 +851,48 @@ class KiteMenusTableSeeder extends Seeder
                 'type' => '3',
                 'updated_at' => '2023-02-08 05:11:38',
             ),
+            30 => 
+            array (
+                'component' => '',
+                'created_at' => '2023-02-14 09:37:36',
+                'icon' => 'iconfont icon-code',
+                'id' => 37,
+                'isAffix' => '0',
+                'isHide' => '0',
+                'isKeepAlive' => '1',
+                'name' => 'develop',
+                'options' => '',
+                'options_type' => '0',
+                'parent_id' => 0,
+                'path' => '/setting/develop',
+                'redirect' => '',
+                'title' => '云开发',
+                'tpl_type' => 1,
+                'type' => '0',
+                'updated_at' => '2023-02-14 09:37:36',
+            ),
+            31 => 
+            array (
+                'component' => '',
+                'created_at' => '2023-02-16 02:18:28',
+                'icon' => 'el-icon-notebook-2',
+                'id' => 38,
+                'isAffix' => '0',
+                'isHide' => '0',
+                'isKeepAlive' => '1',
+                'name' => 'log_manage',
+                'options' => '',
+                'options_type' => '0',
+                'parent_id' => 2,
+                'path' => '',
+                'redirect' => '/setting/log/upload_log',
+                'title' => '日志管理',
+                'tpl_type' => 1,
+                'type' => '0',
+                'updated_at' => '2023-02-16 02:18:28',
+            ),
         ));
-
-
+        
+        
     }
 }
