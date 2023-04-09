@@ -4,13 +4,10 @@
 namespace iLzx\AdminStarter;
 
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
-use iLzx\AdminStarter\Commands\DatabasesCommand;
-use iLzx\AdminStarter\Commands\UninstallCommand;
 use iLzx\AdminStarter\Facades\JWT\Facade\JWT;
-use iLzx\AdminStarter\Commands\InitCommand;
-use iLzx\AdminStarter\Middleware\AvueTokenIsValid;
+use iLzx\AdminStarter\Middleware\ApiLoggerMiddleware;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -40,12 +37,13 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/Routes/routes.php');
         $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
+        $this->addMiddlewareAlias('kite.avue', ApiLoggerMiddleware::class);
         if ($this->app->runningInConsole()) {
-            $this->commands([
-                DatabasesCommand::class,
-                InitCommand::class,
-                UninstallCommand::class,
-            ]);
+            $command_file = File::files(__DIR__ . '/Commands');
+            $command_class = array_map(callback: function ($item) {
+                return new("\iLzx\AdminStarter\Commands\\" . str_replace('.php', '', $item->getFilename()));
+            }, array: $command_file);
+            $this->commands($command_class);
         }
     }
 

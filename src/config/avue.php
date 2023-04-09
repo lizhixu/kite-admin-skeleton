@@ -18,4 +18,5 @@ return [
         //受众
         'JWT_AUD'    => env('JWT_AUD', 'http://example.org'),
     ],
+    'api_log_enabled' => boolval($_SERVER['API_LOGGER_ENABLED'] ?? env('API_LOGGER_ENABLED', false)),
 ];

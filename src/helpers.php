@@ -133,3 +133,25 @@ if (!function_exists('array_value_group')) {
         return $tmp_arr;
     }
 }
+
+
+if (!function_exists('str_joint')) {
+    /**
+     * 无限级字符串拼接
+     * @param $index
+     * @param $items
+     * @param $str_key
+     * @param string $key
+     * @param string $parent_key
+     * @return string
+     */
+    function str_joint($index, $items, $str_key, $key = 'id', $parent_key = 'parent_id'): string
+    {
+        $items = array_column($items, null, $key);
+        $temp_str = $items[$index][$str_key];
+        if (!empty($items[$items[$index][$parent_key]]) && $parent_item = $items[$items[$index][$parent_key]]) {
+            $temp_str = str_joint($parent_item[$key], $items, $str_key, $key, $parent_key) . '-' . $temp_str;
+        }
+        return $temp_str;
+    }
+}

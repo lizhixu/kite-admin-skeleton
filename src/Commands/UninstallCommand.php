@@ -52,6 +52,7 @@ class UninstallCommand extends Command
                 Schema::dropIfExists('kite_icons');
                 Schema::dropIfExists('kite_icon_categorys');
                 Schema::dropIfExists('kite_attachment_manage');
+                Schema::dropIfExists('kite_api_loggers');
                 //清理migrations
                 chdir(__DIR__);
                 $migrate_file = scandir(realpath('./../Database/migrations'));

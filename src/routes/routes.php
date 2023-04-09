@@ -8,8 +8,9 @@ use iLzx\AdminStarter\Controls\IconManageController;
 use iLzx\AdminStarter\Controls\MenuController;
 use iLzx\AdminStarter\Controls\RoleController;
 use iLzx\AdminStarter\Controls\UserController;
+use iLzx\AdminStarter\Controls\ApiLogController;
 
-Route::prefix('k-avue')->group(static function () {
+Route::middleware('kite.avue')->prefix('k-avue')->group(static function () {
     Route::get('/pro', function () {
         return ['avue&kite' => 'v1.0.0'];
     });
@@ -51,6 +52,10 @@ Route::prefix('k-avue')->group(static function () {
         });
         Route::prefix('upload_log')->group(function () {
             Route::get('list', [UpdateLogController::class, 'getList']);
+        });
+        Route::prefix('api_log')->group(function () {
+            Route::get('list', [ApiLogController::class, 'getList']);
+            Route::get('detail/{id}', [ApiLogController::class, 'getDetail']);
         });
     });
     //图标管理

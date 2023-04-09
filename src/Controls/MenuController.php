@@ -87,6 +87,7 @@ class MenuController extends Controller
                 $api_resource = isset($value['id']) ? ApiResource::find($value['id']) : new ApiResource();
                 $value['menu_id'] = $data['id'];
                 if (isset($value['api_method']) && $value['api_url']) {
+                    $value['api_url'] = trim($value['api_url'], "/");
                     $api_resource->fill($value);
                     $api_resource->save();
                 }
