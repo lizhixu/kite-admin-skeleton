@@ -41,7 +41,7 @@ class AdminServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $command_file = File::files(__DIR__ . '/Commands');
             $command_class = array_map(callback: function ($item) {
-                return new("\iLzx\AdminStarter\Commands\\" . str_replace('.php', '', $item->getFilename()));
+                return "\iLzx\AdminStarter\Commands\\" . str_replace('.php', '', $item->getFilename());
             }, array: $command_file);
             $this->commands($command_class);
         }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace iLzx\AdminStarter\Commands;
 
 use Illuminate\Console\Command;
