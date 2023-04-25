@@ -24,7 +24,7 @@ class KiteMenusTableSeeder extends Seeder
                 'id' => 1,
                 'type' => '0',
                 'parent_id' => 0,
-                'path' => '/home',
+                'path' => '/',
                 'redirect' => '',
                 'name' => 'home',
                 'component' => 'home/index',
