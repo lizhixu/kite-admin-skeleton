@@ -58,6 +58,14 @@ Route::middleware('kite.avue')->prefix('k-avue')->group(static function () {
             Route::get('detail/{id}', [ApiLogController::class, 'getDetail']);
         });
     });
+    Route::prefix('form')->group(function () {
+        Route::prefix('personal')->group(function () {
+            Route::get('get_info', [AdminController::class, 'getManageList']);
+            Route::post('add', [AdminController::class, 'addManage']);
+            Route::put('update', [AdminController::class, 'updateManage']);
+            Route::delete('del', [AdminController::class, 'delManage']);
+        });
+    });
     //图标管理
     Route::prefix('icon_manage')->group(function () {
         Route::get('categorys', [IconManageController::class, 'categorysList']);
