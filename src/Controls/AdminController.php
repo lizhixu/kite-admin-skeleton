@@ -40,7 +40,7 @@ class AdminController extends Controller
             $item->status = (string)$item->status;
             $role = json_decode($item->role, true);
             $item->role = $role;
-            $item->avatar ??= 'https://dd-static.jd.com/ddimg/jfs/t1/167172/3/26848/10216/61f228a0Ecd5de48a/4ef7cc601beead36.png';
+            $item->avatar = $item->avatar ?: 'https://dd-static.jd.com/ddimg/jfs/t1/167172/3/26848/10216/61f228a0Ecd5de48a/4ef7cc601beead36.png';
             $item->role_name = Role::find(end($role))?->role_name;
             return $item;
         });
@@ -106,6 +106,49 @@ class AdminController extends Controller
 
         $admin = new Admin();
         $res = $admin->where('id', $id)->delete();
+        return $this->success($res);
+    }
+
+    /**
+     * 保存用户信息
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function personalSave(Request $request)
+    {
+        $request->validate([
+            'id'   => 'required|exists:kite_admin,id',
+            'name' => 'required',
+        ]);
+        $admin = Admin::find($request->id);
+        unset($request->created_at, $request->updated_at);
+        $admin->id = $request->id;
+        $admin->name = $request->name;
+        $admin->avatar = $request->avatar ?: '';
+        $admin->updated_at = date('Y-m-d H:i:s');
+        $res = $admin->save();
+        return $this->success($res);
+    }
+
+    /**
+     * 保存用户信息
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function resetPassword(Request $request)
+    {
+        $request->offsetSet('old_password', md5('kite' . $request->old_password));
+        $request->validate([
+            'id'               => 'required|exists:kite_admin,id',
+            'current_password' => 'required|current_password',
+            'password'         => 'required|confirmed',
+        ]);
+        $admin = Admin::find($request->id);
+        $request->offsetSet('password', md5('kite' . $request->password));
+        unset($request->created_at, $request->updated_at);
+        $admin->fill($request->all());
+        $admin->updated_at = date('Y-m-d H:i:s');
+        $res = $admin->save();
         return $this->success($res);
     }
 }
