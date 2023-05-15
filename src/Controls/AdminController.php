@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 use iLzx\AdminStarter\Models\Admin;
 use iLzx\AdminStarter\Models\Menu;
 use iLzx\AdminStarter\Models\Role;
@@ -117,8 +118,8 @@ class AdminController extends Controller
     public function personalSave(Request $request)
     {
         $request->validate([
-            'id'   => 'required|exists:kite_admin,id',
-            'name' => 'required',
+            'id'     => 'required|exists:kite_admin,id',
+            'name'   => 'required',
         ]);
         $admin = Admin::find($request->id);
         unset($request->created_at, $request->updated_at);
@@ -137,13 +138,16 @@ class AdminController extends Controller
      */
     public function resetPassword(Request $request)
     {
-        $request->offsetSet('old_password', md5('kite' . $request->old_password));
+        $request->offsetSet('current_password', md5('kite' . $request->current_password));
         $request->validate([
             'id'               => 'required|exists:kite_admin,id',
-            'current_password' => 'required|current_password',
-            'password'         => 'required|confirmed',
+            'current_password' => ['required'],
+            'password'         => ['required', 'confirmed', Password::min(8)->mixedCase()],
         ]);
         $admin = Admin::find($request->id);
+        if ($admin['password'] != $request->current_password) {
+            return $this->error('原密码不正确');
+        }
         $request->offsetSet('password', md5('kite' . $request->password));
         unset($request->created_at, $request->updated_at);
         $admin->fill($request->all());
