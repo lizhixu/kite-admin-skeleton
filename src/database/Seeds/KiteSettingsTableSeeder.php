@@ -14,21 +14,21 @@ class KiteSettingsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('kite_settings')->delete();
-
+        
         \DB::table('kite_settings')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'name' => 'icon_cdn_url',
-                'value' => '["\\/\\/at.alicdn.com\\/t\\/font_2348547_zjuiclx86c.css","\\/\\/netdna.bootstrapcdn.com\\/font-awesome\\/4.7.0\\/css\\/font-awesome.min.css","\\/\\/at.alicdn.com\\/t\\/c\\/font_3750819_oljwon1lpoi.css"]',
+                'value' => '["\\/\\/at.alicdn.com\\/t\\/font_2348547_zjuiclx86c.css","\\/\\/at.alicdn.com\\/t\\/c\\/font_3750819_gt3n3hv3n0f.css"]',
                 'created_at' => '2023-01-16 13:57:33',
-                'updated_at' => '2023-01-16 13:58:24',
+                'updated_at' => '2023-05-16 00:47:45',
             ),
         ));
-
-
+        
+        
     }
 }

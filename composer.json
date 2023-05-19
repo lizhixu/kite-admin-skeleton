@@ -34,5 +34,8 @@
                 "JWT": "iLzx\\AdminStarter\\Facades\\JWT"
             }
         }
+    },
+    "require-dev": {
+        "orangehill/iseed": "^3.0"
     }
 }

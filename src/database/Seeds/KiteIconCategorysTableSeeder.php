@@ -14,12 +14,12 @@ class KiteIconCategorysTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('kite_icon_categorys')->delete();
-
+        
         \DB::table('kite_icon_categorys')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'category_name' => 'iconfont',
@@ -28,7 +28,7 @@ class KiteIconCategorysTableSeeder extends Seeder
                 'created_at' => '2023-01-16 13:59:03',
                 'updated_at' => '2023-01-16 13:59:03',
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'category_name' => 'element',
@@ -38,7 +38,7 @@ class KiteIconCategorysTableSeeder extends Seeder
                 'updated_at' => '2023-01-16 13:59:13',
             ),
         ));
-
-
+        
+        
     }
 }

@@ -14,12 +14,12 @@ class KiteApiResourceTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('kite_api_resource')->delete();
-
+        
         \DB::table('kite_api_resource')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'menu_id' => 12,
@@ -28,7 +28,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-22 05:48:27',
                 'updated_at' => '2022-11-22 05:48:27',
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'menu_id' => 4,
@@ -37,7 +37,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-22 06:16:02',
                 'updated_at' => '2022-11-22 06:16:02',
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'menu_id' => 4,
@@ -46,7 +46,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-22 06:16:02',
                 'updated_at' => '2022-11-22 06:16:02',
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'menu_id' => 14,
@@ -55,7 +55,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-22 23:12:26',
                 'updated_at' => '2022-11-22 23:12:26',
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'menu_id' => 15,
@@ -64,7 +64,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-22 15:18:54',
                 'updated_at' => '2022-11-22 15:18:54',
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'menu_id' => 16,
@@ -73,7 +73,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-22 23:52:22',
                 'updated_at' => '2022-11-22 23:52:22',
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 7,
                 'menu_id' => 5,
@@ -82,7 +82,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-23 00:00:33',
                 'updated_at' => '2022-11-23 00:00:33',
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 8,
                 'menu_id' => 17,
@@ -91,7 +91,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-22 16:02:07',
                 'updated_at' => '2022-11-22 16:02:07',
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 9,
                 'menu_id' => 18,
@@ -100,7 +100,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-22 16:02:44',
                 'updated_at' => '2022-11-22 16:02:44',
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 10,
                 'menu_id' => 19,
@@ -109,7 +109,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-23 00:04:04',
                 'updated_at' => '2022-11-23 00:04:04',
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 11,
                 'menu_id' => 20,
@@ -118,7 +118,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-23 00:06:36',
                 'updated_at' => '2022-11-23 00:06:36',
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 12,
                 'menu_id' => 21,
@@ -127,7 +127,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-23 00:06:48',
                 'updated_at' => '2022-11-23 00:06:48',
             ),
-            12 =>
+            12 => 
             array (
                 'id' => 13,
                 'menu_id' => 22,
@@ -136,7 +136,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-11-23 00:07:00',
                 'updated_at' => '2022-11-23 00:07:00',
             ),
-            13 =>
+            13 => 
             array (
                 'id' => 14,
                 'menu_id' => 6,
@@ -145,7 +145,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-12-16 00:27:28',
                 'updated_at' => '2022-12-16 00:27:28',
             ),
-            14 =>
+            14 => 
             array (
                 'id' => 15,
                 'menu_id' => 23,
@@ -154,7 +154,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-12-23 10:35:32',
                 'updated_at' => '2022-12-23 10:35:32',
             ),
-            15 =>
+            15 => 
             array (
                 'id' => 16,
                 'menu_id' => 24,
@@ -163,7 +163,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-12-23 18:44:07',
                 'updated_at' => '2022-12-23 18:44:07',
             ),
-            16 =>
+            16 => 
             array (
                 'id' => 17,
                 'menu_id' => 25,
@@ -172,7 +172,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-12-23 18:44:40',
                 'updated_at' => '2022-12-23 18:44:40',
             ),
-            17 =>
+            17 => 
             array (
                 'id' => 18,
                 'menu_id' => 29,
@@ -181,7 +181,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-12-23 18:45:23',
                 'updated_at' => '2022-12-23 18:45:23',
             ),
-            18 =>
+            18 => 
             array (
                 'id' => 19,
                 'menu_id' => 11,
@@ -190,7 +190,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-12-23 02:46:24',
                 'updated_at' => '2022-12-23 02:46:24',
             ),
-            19 =>
+            19 => 
             array (
                 'id' => 20,
                 'menu_id' => 11,
@@ -199,7 +199,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-12-23 10:47:40',
                 'updated_at' => '2022-12-23 10:47:40',
             ),
-            20 =>
+            20 => 
             array (
                 'id' => 21,
                 'menu_id' => 30,
@@ -208,7 +208,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-12-23 18:48:02',
                 'updated_at' => '2022-12-23 18:48:02',
             ),
-            21 =>
+            21 => 
             array (
                 'id' => 22,
                 'menu_id' => 11,
@@ -217,7 +217,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-12-23 18:49:07',
                 'updated_at' => '2022-12-23 18:49:07',
             ),
-            22 =>
+            22 => 
             array (
                 'id' => 23,
                 'menu_id' => 32,
@@ -226,7 +226,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-12-23 18:49:28',
                 'updated_at' => '2022-12-23 18:49:28',
             ),
-            23 =>
+            23 => 
             array (
                 'id' => 24,
                 'menu_id' => 31,
@@ -235,7 +235,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2022-12-23 18:50:01',
                 'updated_at' => '2022-12-23 18:50:01',
             ),
-            24 =>
+            24 => 
             array (
                 'id' => 25,
                 'menu_id' => 33,
@@ -244,7 +244,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2023-02-08 13:08:06',
                 'updated_at' => '2023-02-08 13:08:06',
             ),
-            25 =>
+            25 => 
             array (
                 'id' => 26,
                 'menu_id' => 33,
@@ -253,7 +253,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2023-02-08 13:08:06',
                 'updated_at' => '2023-02-08 13:08:06',
             ),
-            26 =>
+            26 => 
             array (
                 'id' => 27,
                 'menu_id' => 34,
@@ -262,7 +262,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2023-02-08 13:09:15',
                 'updated_at' => '2023-02-08 13:09:15',
             ),
-            27 =>
+            27 => 
             array (
                 'id' => 28,
                 'menu_id' => 35,
@@ -271,7 +271,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2023-02-08 13:10:30',
                 'updated_at' => '2023-02-08 13:10:30',
             ),
-            28 =>
+            28 => 
             array (
                 'id' => 29,
                 'menu_id' => 36,
@@ -280,7 +280,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2023-02-08 13:12:10',
                 'updated_at' => '2023-02-08 13:12:10',
             ),
-            29 =>
+            29 => 
             array (
                 'id' => 30,
                 'menu_id' => 36,
@@ -289,7 +289,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2023-02-08 13:12:10',
                 'updated_at' => '2023-02-08 13:12:10',
             ),
-            30 =>
+            30 => 
             array (
                 'id' => 31,
                 'menu_id' => 36,
@@ -298,7 +298,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2023-02-08 13:12:10',
                 'updated_at' => '2023-02-08 13:12:10',
             ),
-            31 =>
+            31 => 
             array (
                 'id' => 32,
                 'menu_id' => 26,
@@ -307,7 +307,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2023-02-20 16:10:44',
                 'updated_at' => '2023-02-20 16:10:44',
             ),
-            32 =>
+            32 => 
             array (
                 'id' => 33,
                 'menu_id' => 40,
@@ -316,7 +316,7 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2023-04-08 14:00:17',
                 'updated_at' => '2023-04-08 14:00:17',
             ),
-            33 =>
+            33 => 
             array (
                 'id' => 34,
                 'menu_id' => 40,
@@ -325,8 +325,26 @@ class KiteApiResourceTableSeeder extends Seeder
                 'created_at' => '2023-04-09 10:11:54',
                 'updated_at' => '2023-04-09 10:11:54',
             ),
+            34 => 
+            array (
+                'id' => 35,
+                'menu_id' => 46,
+                'api_method' => '1',
+                'api_url' => 'k-avue/form/personal_save',
+                'created_at' => '2023-05-15 20:37:49',
+                'updated_at' => '2023-05-15 20:37:49',
+            ),
+            35 => 
+            array (
+                'id' => 36,
+                'menu_id' => 46,
+                'api_method' => '1',
+                'api_url' => 'k-avue/form/reset_password',
+                'created_at' => '2023-05-15 20:37:49',
+                'updated_at' => '2023-05-15 20:37:49',
+            ),
         ));
-
-
+        
+        
     }
 }
