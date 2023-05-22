@@ -1,36 +1,38 @@
 <?php
 
-
 namespace iLzx\AdminStarter\Controls;
 
 use Firebase\JWT\ExpiredException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+use iLzx\AdminStarter\Exceptions\AvueTokenExceptions;
 use iLzx\AdminStarter\Facades\JWT\JWT;
 use iLzx\AdminStarter\Models\ApiResource;
 use iLzx\AdminStarter\Models\Role;
 use iLzx\AdminStarter\Traits\ReponseTrait;
-use iLzx\AdminStarter\Exceptions\AvueTokenExceptions;
 
 class Controller extends \Illuminate\Routing\Controller
 {
     use ReponseTrait;
 
     /**
-     * 无需登录的方法,同时也就不需要鉴权了
+     * 无需登录的方法,同时也就不需要鉴权了.
+     *
      * @var array
      */
     protected $noNeedLogin = [];
 
     /**
      * 无需鉴权的方法,但需要登录
-     * 自定义：例 'api/pdd_purchase/account'
+     * 自定义：例 'api/pdd_purchase/account'.
+     *
      * @var array
      */
     protected $noNeedRight = [];
 
     /**
-     * 传入的token
+     * 传入的token.
+     *
      * @var string
      */
     protected $token = '';
@@ -44,7 +46,10 @@ class Controller extends \Illuminate\Routing\Controller
         //验证token是否
         $token = Request::header()['authorization'] ?? [];
         if (!$token) {
-            if (env('AUTH_ON') == 0) return;
+            if (env('AUTH_ON') == 0) {
+                return;
+            }
+
             throw new AvueTokenExceptions('', 203);
         } else {
             try {

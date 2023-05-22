@@ -2,17 +2,13 @@
 
 namespace iLzx\AdminStarter\Controls;
 
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use iLzx\AdminStarter\Models\Admin;
 use iLzx\AdminStarter\Models\Menu;
 use iLzx\AdminStarter\Models\Role;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminController extends Controller
 {
@@ -25,6 +21,7 @@ class AdminController extends Controller
         $menu = new Menu();
         $class = $menu->getMenu(['name' => $options_name], 'options')->toArray();
         $data = str_to_avue($class[0]['options']);
+
         return $this->success($data);
     }
 
@@ -38,17 +35,19 @@ class AdminController extends Controller
         }
         $list = $admin->groupBy('id')->where($where)->select(['id', 'name', 'avatar', 'username', 'role', 'status', 'last_login_time'])->fastPaginate($page_size);
         $items = collect($list->items())->map(function ($item) {
-            $item->status = (string)$item->status;
+            $item->status = (string) $item->status;
             $role = json_decode($item->role, true);
             $item->role = $role;
             $item->avatar = $item->avatar ?: 'https://dd-static.jd.com/ddimg/jfs/t1/167172/3/26848/10216/61f228a0Ecd5de48a/4ef7cc601beead36.png';
             $item->role_name = Role::find(end($role))?->role_name;
+
             return $item;
         });
         $data = [
             'data'  => $items,
-            'total' => $list->total()
+            'total' => $list->total(),
         ];
+
         return $this->success($data);
     }
 
@@ -62,13 +61,15 @@ class AdminController extends Controller
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors();
+
             return $this->error($errors->first());
         }
         $admin = new Admin();
         $admin->fill($request->all());
-        $admin->password = md5('kite' . $request->password);
+        $admin->password = md5('kite'.$request->password);
         $admin->role = json_encode($request->role);
         $res = $admin->save();
+
         return $this->success($res);
     }
 
@@ -79,11 +80,11 @@ class AdminController extends Controller
             'name'     => 'required',
             'role'     => 'required',
             'status'   => 'required|in:0,1',
-            'username' => ['required', Rule::unique('kite_admin')->ignore($request->id),],
+            'username' => ['required', Rule::unique('kite_admin')->ignore($request->id)],
         ]);
         $admin = Admin::find($request->id);
         if (filled($request->password)) {
-            $request->offsetSet('password', md5('kite' . $request->password));
+            $request->offsetSet('password', md5('kite'.$request->password));
         } else {
             $request->offsetSet('password', $admin->password);
         }
@@ -91,6 +92,7 @@ class AdminController extends Controller
         $admin->fill($request->all());
         $admin->updated_at = date('Y-m-d H:i:s');
         $res = $admin->save();
+
         return $this->success($res);
     }
 
@@ -107,12 +109,15 @@ class AdminController extends Controller
 
         $admin = new Admin();
         $res = $admin->where('id', $id)->delete();
+
         return $this->success($res);
     }
 
     /**
-     * 保存用户信息
+     * 保存用户信息.
+     *
      * @param Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function personalSave(Request $request)
@@ -128,17 +133,20 @@ class AdminController extends Controller
         $admin->avatar = $request->avatar ?: '';
         $admin->updated_at = date('Y-m-d H:i:s');
         $res = $admin->save();
+
         return $this->success($res);
     }
 
     /**
-     * 保存用户信息
+     * 保存用户信息.
+     *
      * @param Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function resetPassword(Request $request)
     {
-        $request->offsetSet('current_password', md5('kite' . $request->current_password));
+        $request->offsetSet('current_password', md5('kite'.$request->current_password));
         $request->validate([
             'id'               => 'required|exists:kite_admin,id',
             'current_password' => ['required'],
@@ -148,11 +156,12 @@ class AdminController extends Controller
         if ($admin['password'] != $request->current_password) {
             return $this->error('原密码不正确');
         }
-        $request->offsetSet('password', md5('kite' . $request->password));
+        $request->offsetSet('password', md5('kite'.$request->password));
         unset($request->created_at, $request->updated_at);
         $admin->fill($request->all());
         $admin->updated_at = date('Y-m-d H:i:s');
         $res = $admin->save();
+
         return $this->success($res);
     }
 }

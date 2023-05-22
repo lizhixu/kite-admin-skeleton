@@ -1,8 +1,6 @@
 <?php
 
-
 namespace iLzx\AdminStarter;
-
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
@@ -13,12 +11,13 @@ class AdminServiceProvider extends ServiceProvider
 {
     /**
      * 注册绑定
-     * lzx add 2020/3/9 0:48
+     * lzx add 2020/3/9 0:48.
      */
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/Config/avue.php', config_path('avue.php')
+            __DIR__.'/Config/avue.php',
+            config_path('avue.php')
         );
         $this->app->singleton('jwt', function () {
             return new JWT();
@@ -27,32 +26,36 @@ class AdminServiceProvider extends ServiceProvider
 
     /**
      * 注册后启动
-     * lzx add 2020/3/9 0:53
+     * lzx add 2020/3/9 0:53.
      */
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/Config/avue.php' => config_path('avue.php'),
+            __DIR__.'/Config/avue.php' => config_path('avue.php'),
         ], 'config');
 
-        $this->loadRoutesFrom(__DIR__ . '/Routes/routes.php');
-        $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
+        $this->loadRoutesFrom(__DIR__.'/Routes/routes.php');
+        $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
         $this->addMiddlewareAlias('kite.avue', ApiLoggerMiddleware::class);
         if ($this->app->runningInConsole()) {
-            $command_file = File::files(__DIR__ . '/Commands');
+            $command_file = File::files(__DIR__.'/Commands');
             $command_class = array_map(callback: function ($item) {
-                return "\iLzx\AdminStarter\Commands\\" . str_replace('.php', '', $item->getFilename());
+                return "\iLzx\AdminStarter\Commands\\".str_replace('.php', '', $item->getFilename());
             }, array: $command_file);
             $this->commands($command_class);
         }
     }
 
     /**
-     * 中间件别名
+     * 中间件别名.
+     *
      * @param $name
      * @param $class
+     *
      * @return mixed
+     *
      * @author lzx
+     *
      * @time 2022/1/27 16:13
      */
     protected function addMiddlewareAlias($name, $class): mixed

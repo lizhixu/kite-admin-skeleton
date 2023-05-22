@@ -7,15 +7,15 @@ use Illuminate\Http\JsonResponse;
 trait ReponseTrait
 {
     /**
-     * @param string $message
+     * @param string     $message
      * @param array|null $data
+     *
      * @return JsonResponse
      */
     public function error(string $message = '', array $data = null)
     {
         return adminOutput(201, $data, $message);
     }
-
 
     /**
      * @param mixed $data
@@ -27,7 +27,6 @@ trait ReponseTrait
         return adminOutput(200, $data);
     }
 
-
     /**
      * @param string $message
      *
@@ -38,11 +37,11 @@ trait ReponseTrait
         return adminOutput(200, null, $message);
     }
 
-
     /**
-     * @param int $code
+     * @param int        $code
      * @param array|null $data
-     * @param string $message
+     * @param string     $message
+     *
      * @return JsonResponse
      */
     public function customize($code, array $data = null, string $message = ''): JsonResponse

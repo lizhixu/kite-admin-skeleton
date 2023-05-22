@@ -46,6 +46,7 @@ class InitCommand extends Command
         //进度条
         $bar = $this->output->createProgressBar(5);
         $bar->start();
+
         try {
             //1. migrate
             Artisan::call('migrate');
@@ -82,6 +83,7 @@ class InitCommand extends Command
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
         $role->save();
+
         return $role;
     }
 
@@ -90,13 +92,14 @@ class InitCommand extends Command
         $name = 'admin';
         $password = Str::random(8);
         $res = [
-                'username'   => $name,
-                'password'   => md5('kite' . $password),
-                'name'       => $name,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ] + $insert_res;
+            'username'   => $name,
+            'password'   => md5('kite'.$password),
+            'name'       => $name,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ] + $insert_res;
         Admin::insert($res);
+
         return [['username' => $name, 'password' => $password]];
     }
 }

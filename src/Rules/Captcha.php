@@ -23,12 +23,14 @@ class Captcha implements Rule
      * Determine if the validation rule passes.
      *
      * @param string $attribute
-     * @param mixed $value
+     * @param mixed  $value
+     *
      * @return bool
      */
     public function passes($attribute, $value)
     {
-        $phrase = Cache::get('phrase' . $this->redomstr);
+        $phrase = Cache::get('phrase'.$this->redomstr);
+
         return $phrase && strtolower($phrase) == strtolower($value);
     }
 

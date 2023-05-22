@@ -34,16 +34,17 @@ class UserController extends Controller
         $admin_model = new Admin();
         $admin = $admin_model->where([
             ['username', '=', $request->username],
-            ['password', '=', md5('kite' . $request->password)],
+            ['password', '=', md5('kite'.$request->password)],
         ])->select('id', 'username', 'avatar')->first();
         if (!$admin) {
             return adminOutput(202, []);
         }
         $admin_model->where('id', $admin->id)->update([
-            'last_login_time' => date('Y-m-d H:i:s')
+            'last_login_time' => date('Y-m-d H:i:s'),
         ]);
         $jwt = JWT::createToken($admin, $admin->id, $request->checked);
-        Cache::forget('phrase' . $request->redomStr);
+        Cache::forget('phrase'.$request->redomStr);
+
         return adminOutput(200, ['token' => $jwt]);
     }
 
@@ -56,6 +57,7 @@ class UserController extends Controller
         $role = json_decode($user_info->role, true);
         $btn_list = (new Role())->getButtenRole(end($role));
         $user_info->authBtnList = $btn_list;
+
         return adminOutput(200, $user_info);
     }
 }

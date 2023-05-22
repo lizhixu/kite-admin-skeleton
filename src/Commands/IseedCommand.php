@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Artisan;
 class IseedCommand extends Command
 {
     /**
-     * 命令名称及签名
+     * 命令名称及签名.
      *
      * @var string
      */
@@ -17,14 +17,14 @@ class IseedCommand extends Command
     protected $tables = ['kite_api_resource', 'kite_icons', 'kite_icon_categorys', 'kite_menus', 'kite_settings'];
 
     /**
-     * 命令描述
+     * 命令描述.
      *
      * @var string
      */
     protected $description = 'kite数据填充';
 
     /**
-     * 创建命令
+     * 创建命令.
      *
      * @return void
      */
@@ -43,8 +43,9 @@ class IseedCommand extends Command
         //进度条
         $bar = $this->output->createProgressBar(2);
         $bar->start();
+
         try {
-            Artisan::call('iseed ' . implode(',', $this->tables) . ' --force');
+            Artisan::call('iseed '.implode(',', $this->tables).' --force');
             $bar->advance();
             $bar->finish();
             $this->output->success('基础数据填充已生成！');

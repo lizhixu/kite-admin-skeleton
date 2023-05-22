@@ -2,9 +2,8 @@
 
 namespace iLzx\AdminStarter\Controls;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use iLzx\AdminStarter\Models\Icon;
@@ -15,12 +14,14 @@ class IconManageController extends Controller
     protected $noNeedRight = ['k-avue/common/get_icon_options'];
 
     /**
-     * 图标类别
+     * 图标类别.
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function categorysList()
     {
         $data = DB::table('kite_icon_categorys')->orderBy('sort')->get();
+
         return $this->success($data);
     }
 
@@ -33,6 +34,7 @@ class IconManageController extends Controller
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors();
+
             return $this->error($errors->first());
         }
         $data = DB::table('kite_icon_categorys')->insert([
@@ -42,6 +44,7 @@ class IconManageController extends Controller
             'created_at'     => date('Y-m-d H:i:s'),
             'updated_at'     => date('Y-m-d H:i:s'),
         ]);
+
         return $this->success($data);
     }
 
@@ -55,6 +58,7 @@ class IconManageController extends Controller
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors();
+
             return $this->error($errors->first());
         }
         $data = DB::table('kite_icon_categorys')->where('id', $request->id)->update([
@@ -62,6 +66,7 @@ class IconManageController extends Controller
             'sort'          => $request->sort,
             'updated_at'    => date('Y-m-d H:i:s'),
         ]);
+
         return $this->success($data);
     }
 
@@ -76,12 +81,14 @@ class IconManageController extends Controller
             return $this->error('请先删除分类下的图标');
         }
         $data = DB::table('kite_icon_categorys')->where('id', $request->id)->delete();
+
         return $this->success($data);
     }
 
     public function getIconUrl()
     {
         $data = Setting::get('icon_cdn_url');
+
         return $this->success(json_decode($data, true));
     }
 
@@ -89,6 +96,7 @@ class IconManageController extends Controller
     {
         $icon_cdn_url = array_merge(array_filter($request->icon_cdn_url));
         $res = Setting::upsert(['name' => 'icon_cdn_url', 'value' => json_encode($icon_cdn_url)], ['name'], ['value']);
+
         return $this->success($res);
     }
 
@@ -100,6 +108,7 @@ class IconManageController extends Controller
         $icon->admin_id = get_user_info()['id'];
         $icon->category_id = $data['id'];
         $res = $icon->save();
+
         return $this->success($res);
     }
 
@@ -108,6 +117,7 @@ class IconManageController extends Controller
         $icon = new Icon();
         $data = $icon->where('category_alias', $category_alias)->select('kite_icons.*', 'category_alias')
             ->leftJoin('kite_icon_categorys', 'kite_icon_categorys.id', '=', 'kite_icons.category_id')->get();
+
         return $this->success($data);
     }
 
@@ -115,6 +125,7 @@ class IconManageController extends Controller
     {
         $icon = new Icon();
         $res = $icon->destroy($id);
+
         return $this->success($res);
     }
 
@@ -129,8 +140,10 @@ class IconManageController extends Controller
             ->get()
             ->map(function ($item) use ($icon_list) {
                 $item->list = $icon_list[$item->id];
+
                 return $item;
             });
+
         return $this->success($categorys);
     }
 }

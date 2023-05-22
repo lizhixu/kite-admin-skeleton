@@ -1,8 +1,6 @@
 <?php
 
-
 namespace iLzx\AdminStarter\Models;
-
 
 class Attachment extends Model
 {

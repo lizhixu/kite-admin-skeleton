@@ -10,7 +10,6 @@ class ApiLogger extends Model
 
     protected $table = 'kite_api_loggers';
 
-
     protected $fillable = [
         'api_url',
         'request_full_url',
@@ -21,12 +20,12 @@ class ApiLogger extends Model
         'request_agent',
         'response_content',
         'response_status_code',
-        'admin_id'
+        'admin_id',
     ];
 
     protected $casts = [
-        'request_header' => 'array',
-        'request_body' => 'array',
+        'request_header'   => 'array',
+        'request_body'     => 'array',
         'response_content' => 'array',
     ];
 }

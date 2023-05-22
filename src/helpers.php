@@ -7,26 +7,33 @@ use Illuminate\Support\Facades\Config;
 if (!function_exists('adminOutput')) {
     /**
      * 输出状态
-     * lzx add 2020/5/17 19:08
-     * @param int $status
+     * lzx add 2020/5/17 19:08.
+     *
+     * @param int               $status
      * @param array|object|null $data
-     * @param string|null $msg
+     * @param string|null       $msg
+     *
      * @return array
      */
     function adminOutput(int $status, $data = [], ?string $msg = null): array
     {
-        $msg = $msg ?: Config::get('avue.status.' . $status);
-        return ['status' => (int)$status, 'message' => $msg, 'time' => time(), 'data' => $data];
+        $msg = $msg ?: Config::get('avue.status.'.$status);
+
+        return ['status' => (int) $status, 'message' => $msg, 'time' => time(), 'data' => $data];
     }
 }
 
 if (!function_exists('jwt_encode')) {
     /**
-     * jwt签发
+     * jwt签发.
+     *
      * @param $payload
      * @param $key
+     *
      * @return string
+     *
      * @author lzx
+     *
      * @time 2022/1/19 13:53
      */
     function jwt_encode($payload, $key): string
@@ -37,27 +44,34 @@ if (!function_exists('jwt_encode')) {
 
 if (!function_exists('jwt_decode')) {
     /**
-     * jwt解签
+     * jwt解签.
+     *
      * @param $token
      * @param $key
+     *
      * @return object
+     *
      * @author lzx
+     *
      * @time 2022/1/19 13:54
      */
     function jwt_decode($token, $key): object
     {
         JWT::$leeway = 30; // $leeway in seconds
+
         return JWT::decode($token, new Key($key, 'HS256'));
     }
 }
 
 if (!function_exists('unlimited_class')) {
     /**
-     * 无限级分类
+     * 无限级分类.
+     *
      * @param $items
      * @param string $key
      * @param string $parent_key
-     * @param int $parent_id
+     * @param int    $parent_id
+     *
      * @return array
      */
     function unlimited_class($items, $key = 'value', $parent_key = 'parent_id', $parent_id = 0): array
@@ -74,14 +88,17 @@ if (!function_exists('unlimited_class')) {
                 $data[] = $item_tmp;
             }
         }
+
         return $data;
     }
 }
 
 if (!function_exists('object_to_array')) {
     /**
-     * 对象转数组
+     * 对象转数组.
+     *
      * @param $object
+     *
      * @return array
      */
     function object_to_array($object): array
@@ -91,8 +108,10 @@ if (!function_exists('object_to_array')) {
 }
 if (!function_exists('str_to_avue')) {
     /**
-     * avue字符串转json
+     * avue字符串转json.
+     *
      * @param $data
+     *
      * @return mixed
      */
     function str_to_avue($data)
@@ -108,7 +127,8 @@ if (!function_exists('str_to_avue')) {
 
 if (!function_exists('get_user_info')) {
     /**
-     * 获取当前管理员信息
+     * 获取当前管理员信息.
+     *
      * @return array|null
      */
     function get_user_info(): array|null
@@ -119,9 +139,11 @@ if (!function_exists('get_user_info')) {
 
 if (!function_exists('array_value_group')) {
     /**
-     * 二维数组根据某一字段分组，并以这个字段值为key
+     * 二维数组根据某一字段分组，并以这个字段值为key.
+     *
      * @param $array
      * @param $flag
+     *
      * @return array
      */
     function array_value_group($array, $flag): array
@@ -130,19 +152,21 @@ if (!function_exists('array_value_group')) {
         foreach ($array as $value) {
             $tmp_arr[$value[$flag]][] = $value;
         }
+
         return $tmp_arr;
     }
 }
 
-
 if (!function_exists('str_joint')) {
     /**
-     * 无限级字符串拼接
+     * 无限级字符串拼接.
+     *
      * @param $index
      * @param $items
      * @param $str_key
      * @param string $key
      * @param string $parent_key
+     *
      * @return string
      */
     function str_joint($index, $items, $str_key, $key = 'id', $parent_key = 'parent_id'): string
@@ -150,8 +174,9 @@ if (!function_exists('str_joint')) {
         $items = array_column($items, null, $key);
         $temp_str = $items[$index][$str_key];
         if (!empty($items[$items[$index][$parent_key]]) && $parent_item = $items[$items[$index][$parent_key]]) {
-            $temp_str = str_joint($parent_item[$key], $items, $str_key, $key, $parent_key) . '-' . $temp_str;
+            $temp_str = str_joint($parent_item[$key], $items, $str_key, $key, $parent_key).'-'.$temp_str;
         }
+
         return $temp_str;
     }
 }

@@ -19,7 +19,8 @@ class ApiLoggerMiddleware
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -27,12 +28,12 @@ class ApiLoggerMiddleware
         return $next($request);
     }
 
-
     /**
      * Handle tasks after the response has been sent to the browser.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request  $request
      * @param \Illuminate\Http\Response $response
+     *
      * @return void
      */
     public function terminate($request, $response)
@@ -52,5 +53,4 @@ class ApiLoggerMiddleware
             ]);
         }
     }
-
 }

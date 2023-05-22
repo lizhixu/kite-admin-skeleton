@@ -2,21 +2,20 @@
 
 namespace iLzx\AdminStarter\Controls;
 
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use iLzx\AdminStarter\Models\Menu;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\QueryException;
 use iLzx\AdminStarter\Models\ApiResource;
+use iLzx\AdminStarter\Models\Menu;
 use iLzx\AdminStarter\Models\Role;
 use iLzx\AdminStarter\Requests\MenuRequest;
 
 class MenuController extends Controller
 {
     protected $noNeedRight = [
-        'k-avue/getMenu'
+        'k-avue/getMenu',
     ];
 
     public function getMenu(): array
@@ -43,6 +42,7 @@ class MenuController extends Controller
             } else {
                 $component = $item->component ?: 'layout/routerView/parent';
             }
+
             return [
                 'path'      => $item->path,
                 'name'      => $item->name,
@@ -63,6 +63,7 @@ class MenuController extends Controller
             ];
         });
         $primary_class = unlimited_class(object_to_array($primary_class));
+
         return $this->success($primary_class);
     }
 
@@ -73,6 +74,7 @@ class MenuController extends Controller
         if ($data['parent_id'] == $data['id']) {
             return $this->error('上级分类不能选自己');
         }
+
         try {
             $menu = Menu::find($data['id']);
             $menu->fill($data);
@@ -87,7 +89,7 @@ class MenuController extends Controller
                 $api_resource = isset($value['id']) ? ApiResource::find($value['id']) : new ApiResource();
                 $value['menu_id'] = $data['id'];
                 if (isset($value['api_method']) && $value['api_url']) {
-                    $value['api_url'] = trim($value['api_url'], "/");
+                    $value['api_url'] = trim($value['api_url'], '/');
                     $api_resource->fill($value);
                     $api_resource->save();
                 }
@@ -95,8 +97,10 @@ class MenuController extends Controller
             DB::commit();
         } catch (QueryException $exception) {
             DB::rollBack();
+
             return $this->error($exception->getMessage());
         }
+
         return $this->success($data);
     }
 
@@ -110,8 +114,9 @@ class MenuController extends Controller
             return $this->error('分类不存在');
         }
         $class['api_resource'] = $api_resource->getList(['menu_id' => $class['id']], '*');
-        $class['options_type'] = (int)$class['options_type'];
+        $class['options_type'] = (int) $class['options_type'];
         $class['options_value'] = str_to_avue($class['options']);
+
         return $this->success($class);
     }
 
@@ -121,6 +126,7 @@ class MenuController extends Controller
         //一级分类
         $primary_class = $menu->getMenu([], 'id as value', 'title as label', 'name', 'type', 'tpl_type', 'parent_id');
         $primary_class = unlimited_class($primary_class->toArray());
+
         return $this->success($primary_class);
     }
 
@@ -128,13 +134,15 @@ class MenuController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'  => 'required|unique:kite_menus,name',
-            'label' => 'required'
+            'label' => 'required',
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors();
+
             return $this->error($errors->first());
         }
         DB::beginTransaction();
+
         try {
             $menu = new Menu();
             $menu->name = $request->name;
@@ -142,9 +150,11 @@ class MenuController extends Controller
             $menu->parent_id = $request->parent_id ?? 0;
             $menu->save();
             DB::commit();
+
             return $this->success($menu);
         } catch (QueryException $exception) {
             DB::rollBack();
+
             return $this->error($exception->getMessage());
         }
     }
@@ -153,13 +163,15 @@ class MenuController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'  => ['required', Rule::unique('kite_menus')->ignore($request->value)],
-            'label' => 'required'
+            'label' => 'required',
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors();
+
             return $this->error($errors->first());
         }
         DB::beginTransaction();
+
         try {
             $menu = Menu::find($request->value);
             $menu->name = $request->name;
@@ -167,9 +179,11 @@ class MenuController extends Controller
             $menu->parent_id = $request->parent_id ?? 0;
             $menu->save();
             DB::commit();
+
             return $this->success($menu);
         } catch (QueryException $exception) {
             DB::rollBack();
+
             return $this->error($exception->getMessage());
         }
     }
@@ -188,12 +202,15 @@ class MenuController extends Controller
             return $this->error('菜单存在子菜单，请先删除子菜单');
         }
         DB::beginTransaction();
+
         try {
             $menu->where('id', $id)->delete();
             DB::commit();
+
             return $this->success($menu);
         } catch (QueryException $exception) {
             DB::rollBack();
+
             return $this->error($exception->getMessage());
         }
     }
