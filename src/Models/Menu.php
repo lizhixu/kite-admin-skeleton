@@ -2,7 +2,6 @@
 
 namespace iLzx\AdminStarter\Models;
 
-
 class Menu extends Model
 {
     protected $table = 'kite_menus';

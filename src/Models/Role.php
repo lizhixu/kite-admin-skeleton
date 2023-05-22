@@ -2,10 +2,8 @@
 
 namespace iLzx\AdminStarter\Models;
 
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
@@ -25,7 +23,8 @@ class Role extends Model
     }
 
     /**
-     * 获取管理员按钮权限
+     * 获取管理员按钮权限.
+     *
      * @return void
      */
     public function getButtenRole($id)
@@ -42,6 +41,7 @@ class Role extends Model
                 $query->whereIn('id', $menu_ids);
             }];
         }
+
         return $menu->getMenu($conditions, 'name')->pluck('name')->toArray();
     }
 }

@@ -8,6 +8,7 @@ class CreateKiteMenusTable extends Migration
 {
     /**
      * Run the migrations.
+     *
      * @return void
      */
     public function up()
@@ -26,7 +27,7 @@ class CreateKiteMenusTable extends Migration
             $table->enum('isKeepAlive', [0, 1])->comment('是否缓存')->default(1);
             $table->enum('isAffix', [0, 1])->comment('是否固定')->default(0);
             $table->timestamps();
-            $table->charset   = 'utf8mb4';
+            $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
         });
     }

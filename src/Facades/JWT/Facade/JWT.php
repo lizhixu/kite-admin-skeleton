@@ -15,13 +15,17 @@ class JWT
     }
 
     /**
-     * 创建token
+     * 创建token.
+     *
      * @param $data
      * @param $id
      * @param $checked
      * @param string $sub
+     *
      * @return string
+     *
      * @author lzx
+     *
      * @time 2022/1/27 15:58
      */
     public static function createToken($data, $id, $checked, string $sub = 'kite-admin-token'): string
@@ -38,6 +42,7 @@ class JWT
             'sub'  => $sub,
             'jti'  => md5($id),
         ];
+
         return jwt_encode($payload, $key);
     }
 
@@ -47,10 +52,14 @@ class JWT
     }
 
     /**
-     * 验证token
+     * 验证token.
+     *
      * @param string $token
+     *
      * @return bool|object
+     *
      * @author lzx
+     *
      * @time 2022/1/27 15:59
      */
     public static function validationToken(string $token): bool|object
@@ -66,8 +75,10 @@ class JWT
             if (!$admin) {
                 throw new ExpiredException('账户已封禁');
             }
+
             return $admin;
         }
+
         return false;
     }
 }

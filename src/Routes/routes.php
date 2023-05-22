@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use iLzx\AdminStarter\Controls\AdminController;
-use iLzx\AdminStarter\Controls\UpdateLogController;
+use iLzx\AdminStarter\Controls\ApiLogController;
 use iLzx\AdminStarter\Controls\CommonController;
 use iLzx\AdminStarter\Controls\IconManageController;
 use iLzx\AdminStarter\Controls\MenuController;
 use iLzx\AdminStarter\Controls\RoleController;
+use iLzx\AdminStarter\Controls\UpdateLogController;
 use iLzx\AdminStarter\Controls\UserController;
-use iLzx\AdminStarter\Controls\ApiLogController;
 
 Route::middleware('kite.avue')->prefix('k-avue')->group(static function () {
     Route::get('/pro', function () {

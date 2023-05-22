@@ -2,14 +2,13 @@
 
 namespace iLzx\AdminStarter\Models;
 
-use Illuminate\Support\Facades\DB;
-
 class Model extends \Illuminate\Database\Eloquent\Model
 {
     /**
      * 为数组 / JSON 序列化准备日期。
      *
      * @param \DateTimeInterface $date
+     *
      * @return string
      */
     protected function serializeDate(\DateTimeInterface $date)

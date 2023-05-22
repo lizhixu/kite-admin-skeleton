@@ -5,27 +5,26 @@ namespace iLzx\AdminStarter\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 
 class UninstallCommand extends Command
 {
     /**
-     * 命令名称及签名
+     * 命令名称及签名.
      *
      * @var string
      */
     protected $signature = 'kite:uninstall';
 
     /**
-     * 命令描述
+     * 命令描述.
      *
      * @var string
      */
     protected $description = 'kite数据卸载';
 
     /**
-     * 创建命令
+     * 创建命令.
      *
      * @return void
      */
@@ -35,7 +34,7 @@ class UninstallCommand extends Command
     }
 
     /**
-     * 执行命令
+     * 执行命令.
      *
      * @return void
      */

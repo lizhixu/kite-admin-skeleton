@@ -2,15 +2,8 @@
 
 namespace iLzx\AdminStarter\Controls;
 
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use iLzx\AdminStarter\Models\Admin;
-use iLzx\AdminStarter\Models\Menu;
 use iLzx\AdminStarter\Models\Role;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class RoleController extends Controller
 {
@@ -19,12 +12,14 @@ class RoleController extends Controller
         $admin = new Role();
         $list = $admin->groupBy('id')->get()->map(function ($item) {
             $item->menu_ids = json_decode($item->menu_ids);
+
             return $item;
         })->toArray();
         $data = [
             'data'  => unlimited_class($list, 'id'),
-            'total' => 0
+            'total' => 0,
         ];
+
         return $this->success($data);
     }
 
@@ -39,6 +34,7 @@ class RoleController extends Controller
         $role->menu_ids = json_encode($request->menu_ids);
         $role->sort = 0;
         $res = $role->save();
+
         return $this->success($res);
     }
 
@@ -56,6 +52,7 @@ class RoleController extends Controller
         $role->menu_ids = json_encode($request->menu_ids);
         $role->updated_at = date('Y-m-d H:i:s');
         $res = $role->save();
+
         return $this->success($res);
     }
 
@@ -73,6 +70,7 @@ class RoleController extends Controller
         }
 
         $res = $role->where('id', $id)->delete();
+
         return $this->success($res);
     }
 }

@@ -11,18 +11,22 @@ use iLzx\AdminStarter\Traits\ReponseTrait;
 class CommonController extends \Illuminate\Routing\Controller
 {
     use ReponseTrait;
+
     public function captcha($redomstr)
     {
         $builder = new CaptchaBuilder(4);
         $builder->setBackgroundColor('245', '247', '250');
         $builder->build();
-        Cache::add('phrase' . $redomstr, $builder->getPhrase(), 60);
+        Cache::add('phrase'.$redomstr, $builder->getPhrase(), 60);
+
         return $builder->output(100, 38);
     }
 
     /**
-     * 菜单下拉选项
+     * 菜单下拉选项.
+     *
      * @param Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function menuOptions()
@@ -31,12 +35,15 @@ class CommonController extends \Illuminate\Routing\Controller
         $class = $menu->getMenu([], 'id', 'title', 'parent_id')->toArray();
 
         $data = unlimited_class($class, 'id');
+
         return $this->success($data);
     }
 
     /**
-     * 角色下拉选项
+     * 角色下拉选项.
+     *
      * @param Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function ruleOptions()
@@ -44,6 +51,7 @@ class CommonController extends \Illuminate\Routing\Controller
         $role = new Role();
         $role_list = $role->getList([], 'id', 'role_name', 'parent_id')->toArray();
         $data = unlimited_class($role_list, 'id');
+
         return $this->success($data);
     }
 }

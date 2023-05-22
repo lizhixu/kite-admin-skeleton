@@ -5,28 +5,25 @@ namespace iLzx\AdminStarter\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Schema;
 
 class UpdateCommand extends Command
 {
     /**
-     * 命令名称及签名
+     * 命令名称及签名.
      *
      * @var string
      */
     protected $signature = 'kite:update';
 
     /**
-     * 命令描述
+     * 命令描述.
      *
      * @var string
      */
     protected $description = 'kite数据升级';
 
     /**
-     * 创建命令
+     * 创建命令.
      *
      * @return void
      */
@@ -45,6 +42,7 @@ class UpdateCommand extends Command
         //进度条
         $bar = $this->output->createProgressBar(2);
         $bar->start();
+
         try {
             //1. migrate
             Artisan::call('migrate');

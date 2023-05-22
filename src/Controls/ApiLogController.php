@@ -2,7 +2,6 @@
 
 namespace iLzx\AdminStarter\Controls;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use iLzx\AdminStarter\Models\Admin;
@@ -46,10 +45,12 @@ class ApiLogController extends Controller
                 $item['title'] = !empty($menu_ids[$item->api_url])
                     ? str_joint($menu_ids[$item->api_url], $primary_class, 'title')
                     : '系统';
+
                 return $item;
             }),
-            'total' => $res->total()
+            'total' => $res->total(),
         ];
+
         return $this->success($data);
     }
 
@@ -58,6 +59,7 @@ class ApiLogController extends Controller
         $logger = new ApiLogger();
         $res = $logger->where(['id' => $id])
             ->first();
+
         return $this->success($res);
     }
 }
